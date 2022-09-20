@@ -52,7 +52,7 @@ resource "aws_instance" "active-fgt" {
 }
 
 data "template_file" "active-fgt" {
-  template = file("./templates/fgt.conf")
+  template = file(var.bootstrap-fgt)
 
   vars = {
     fgt_id               = "${var.hub["id"]}-Active"

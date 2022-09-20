@@ -193,7 +193,7 @@ variable "sites-bgp-asn" {
 variable "bootstrap-fgt" {
   // Change to your own path
   type    = string
-  default = "./templates/fgt.conf"
+  default = "fgt.conf"
 }
 
 // license file for the active fgt

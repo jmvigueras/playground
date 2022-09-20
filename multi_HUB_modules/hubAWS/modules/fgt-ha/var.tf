@@ -215,3 +215,9 @@ variable "keypair" {
   description = "Provide a keypair for accessing the FortiGate instances"
   default     = "<key pair>"
 }
+
+variable "bootstrap-fgt" {
+  // Change to your own path
+  type    = string
+  default = "fgt.conf"
+}

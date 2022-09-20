@@ -39,7 +39,7 @@ resource "aws_instance" "passive-fgt" {
 
 
 data "template_file" "passive-fgt" {
-  template = file("./templates/fgt.conf")
+  template = file(var.bootstrap-fgt)
 
   vars = {
     fgt_id               = "${var.hub["id"]}-Passive"
