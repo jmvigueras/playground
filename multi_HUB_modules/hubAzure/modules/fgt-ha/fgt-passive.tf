@@ -80,9 +80,6 @@ data "template_file" "passiveFortiGate" {
     port3_ip        = cidrhost(var.subnet-vnet-fgt_nets["private"],11)
     port3_mask      = cidrnetmask(var.subnet-vnet-fgt_nets["private"])
     port3_gw        = cidrhost(var.subnet-vnet-fgt_nets["private"],1)
-    port4_ip        = cidrhost(var.subnet-vnet-fgt_nets["advpn"],11)
-    port4_mask      = cidrnetmask(var.subnet-vnet-fgt_nets["advpn"])
-    port4_gw        = cidrhost(var.subnet-vnet-fgt_nets["advpn"],1)
 
     peerip          = cidrhost(var.subnet-vnet-fgt_nets["mgmt"],10)
     

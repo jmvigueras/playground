@@ -92,9 +92,6 @@ data "template_file" "activeFortiGate" {
     port3_ip        = cidrhost(var.subnet-vnet-fgt_nets["private"],10)
     port3_mask      = cidrnetmask(var.subnet-vnet-fgt_nets["private"])
     port3_gw        = cidrhost(var.subnet-vnet-fgt_nets["private"],1)
-    port4_ip        = cidrhost(var.subnet-vnet-fgt_nets["advpn"],10)
-    port4_mask      = cidrnetmask(var.subnet-vnet-fgt_nets["advpn"])
-    port4_gw        = cidrhost(var.subnet-vnet-fgt_nets["advpn"],1)
 
     peerip          = cidrhost(var.subnet-vnet-fgt_nets["mgmt"],11)
     tenant          = var.tenant_id

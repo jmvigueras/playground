@@ -31,7 +31,6 @@ output "fgt-active-ni_ids" {
     "port1" = azurerm_network_interface.ni-activeport1.id
     "port2" = azurerm_network_interface.ni-activeport2.id
     "port3" = azurerm_network_interface.ni-activeport3.id
-    "port4" = azurerm_network_interface.ni-activeport4.id
   }
 }
 
@@ -44,7 +43,6 @@ output "fgt-active-ni_ips"{
     "port1" = azurerm_network_interface.ni-activeport1.private_ip_address
     "port2" = azurerm_network_interface.ni-activeport2.private_ip_address
     "port3" = azurerm_network_interface.ni-activeport3.private_ip_address
-    "port4" = azurerm_network_interface.ni-activeport4.private_ip_address
   }
 }
 
@@ -53,7 +51,6 @@ output "fgt-passive-ni_ids"{
     "port1" = azurerm_network_interface.ni-passiveport1.id
     "port2" = azurerm_network_interface.ni-passiveport2.id
     "port3" = azurerm_network_interface.ni-passiveport3.id
-    "port4" = azurerm_network_interface.ni-passiveport4.id
   }
 }
 
@@ -66,7 +63,6 @@ output "fgt-passive-ni_ips"{
     "port1" = azurerm_network_interface.ni-passiveport1.private_ip_address
     "port2" = azurerm_network_interface.ni-passiveport2.private_ip_address
     "port3" = azurerm_network_interface.ni-passiveport3.private_ip_address
-    "port4" = azurerm_network_interface.ni-passiveport4.private_ip_address
   }
 }
 
@@ -75,7 +71,6 @@ output "subnet-vnet-fgt_nets"{
     "mgmt"      = azurerm_subnet.subnet-hamgmt.address_prefixes[0]
     "public"    = azurerm_subnet.subnet-public.address_prefixes[0]
     "private"   = azurerm_subnet.subnet-private.address_prefixes[0]
-    "advpn"     = azurerm_subnet.subnet-advpn.address_prefixes[0]
   }
 }
 
@@ -84,7 +79,6 @@ output "subnet-vnet-fgt_names"{
     "mgmt"    = azurerm_subnet.subnet-hamgmt.name
     "public"  = azurerm_subnet.subnet-public.name
     "private" = azurerm_subnet.subnet-private.name
-    "advpn"   = azurerm_subnet.subnet-advpn.name
     "vgw"     = azurerm_subnet.subnet-vgw.name
   }
 }
@@ -94,7 +88,6 @@ output "subnet-vnet-fgt_ids"{
     "mgmt"    = azurerm_subnet.subnet-hamgmt.id
     "public"  = azurerm_subnet.subnet-public.id
     "private" = azurerm_subnet.subnet-private.id
-    "advpn"   = azurerm_subnet.subnet-advpn.id
     "vgw"     = azurerm_subnet.subnet-vgw.id
   }
 }

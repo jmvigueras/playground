@@ -34,13 +34,6 @@ resource "azurerm_subnet" "subnet-private" {
   address_prefixes     = [cidrsubnet(var.vnet-fgt_net,4,3)]
 }
 
-resource "azurerm_subnet" "subnet-advpn" {
-  name                 = "${var.prefix}-subnet-advpn"
-  resource_group_name  = var.resourcegroup_name
-  virtual_network_name = azurerm_virtual_network.vnet-fgt.name
-  address_prefixes     = [cidrsubnet(var.vnet-fgt_net,4,4)]
-}
-
 resource "azurerm_subnet" "subnet-vgw" {
   name                 = "GatewaySubnet"
   resource_group_name  = var.resourcegroup_name
@@ -153,25 +146,6 @@ resource "azurerm_network_interface" "ni-activeport3" {
   }
 }
 
-resource "azurerm_network_interface" "ni-activeport4" {
-  name                          = "${var.prefix}-ni-activeport4"
-  location                      = var.location
-  resource_group_name           = var.resourcegroup_name
-  enable_ip_forwarding          = true
-  enable_accelerated_networking = var.accelerate == "true" ? true : false
-
-  ip_configuration {
-    name                          = "ipconfig1"
-    subnet_id                     = azurerm_subnet.subnet-advpn.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = cidrhost(azurerm_subnet.subnet-advpn.address_prefixes[0],10)
-  }
-
-  tags = {
-    environment = var.tag_env
-  }
-}
-
 
 // Passive FGT Network Interface port1
 resource "azurerm_network_interface" "ni-passiveport1" {
@@ -231,23 +205,3 @@ resource "azurerm_network_interface" "ni-passiveport3" {
     environment = var.tag_env
   }
 }
-
-resource "azurerm_network_interface" "ni-passiveport4" {
-  name                          = "${var.prefix}-ni-passiveport4"
-  location                      = var.location
-  resource_group_name           = var.resourcegroup_name
-  enable_ip_forwarding          = true
-  enable_accelerated_networking = var.accelerate == "true" ? true : false
-
-  ip_configuration {
-    name                          = "ipconfig1"
-    subnet_id                     = azurerm_subnet.subnet-advpn.id
-    private_ip_address_allocation = "Static"
-    private_ip_address            = cidrhost(azurerm_subnet.subnet-advpn.address_prefixes[0],11)
-  }
-
-  tags = {
-    environment = var.tag_env
-  }
-}
-
