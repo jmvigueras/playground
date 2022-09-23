@@ -3,7 +3,7 @@ variable "hub-peer" {
   type = map(any)
   default = {
     "bgp-asn"        = "65001"
-    "public-ip1"     = "54.228.45.211"
+    "public-ip1"     = "54.155.35.17"
     "vxlan-ip1"      = "10.10.30.254"
   }
 }

@@ -8,7 +8,7 @@ variable "hub1" {
   type = map(any)
   default = {
     bgp-asn         = "65001"
-    public-ip1      = "54.228.45.211"
+    public-ip1      = "54.155.35.17"
     advpn-ip1       = "10.10.10.1"
     hck-srv-ip1     = "172.30.16.10"
     cidr            = "172.30.0.0/20"
@@ -19,7 +19,7 @@ variable "hub2" {
   type = map(any)
   default = {
     bgp-asn         = "65002"
-    public-ip1      = "20.242.78.83"
+    public-ip1      = "20.12.28.245"
     advpn-ip1       = "10.10.20.1"
     hck-srv-ip1     = "172.31.16.4"
     cidr            = "172.31.0.0/20"
