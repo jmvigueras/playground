@@ -1,0 +1,22 @@
+// Change to your own azure environment
+subscription_id = "xxx-xxx-xxx"
+client_id       = "xxx-xxx-xxx"
+client_secret   = "xxxxxxxxx"
+tenant_id       = "xxx-xxx-xxx"
+
+prefix = "my-custom-prefix"
+advpn-ipsec-psk = "PSK-sample-key"
+
+hub-peer = {
+    "bgp-asn"        = "65002"
+    "ip-public-ip1"  = "11.11.11.11"
+    "vxlan-ip1"      = "10.10.30.253"
+}
+
+hub = {
+    "id"             = "HubAzure"
+    "bgp-asn"        = "65001"
+    "bgp-id"         = "10.10.10.254"
+    "vxlan-ip1"      = "10.10.30.254"
+    "advpn-ip1"      = "10.10.10.254"
+}
