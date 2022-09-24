@@ -1,6 +1,5 @@
 # Multi HUB scenario with 2 HUB deployed in AWS and Azure and 1 site in GCP
 ## Introduction
-### This topology is only recommended for using with FOS 7.0.5 and later, since FSO 7.0 3 ports only HA setup is supported.
 
 This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 1 site. The traffic between HUBs and site is managed by fortigate using SDWAN technology and traffic inside HUBs is also controled by fortigates clusters. With this configuration all traffic will be inspected and controlled using fortigate L7 inspection improving security and visibility. 
 
@@ -10,11 +9,11 @@ This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 
 
 ## Deployment Overview
 
-- Full deployment is a multi HUB enviroment with 2 hubs and 1 site. 
+- Full deployment of a multi HUB enviroment with 2 hubs and 1 site. 
 - HUB 1 is deployed in AWS. 
 - HUB 2 is deployed in Azure.
 - Site is deployed in GCP.
-- HUBs are connected over a simulated L2 connection using vxlan over Internet. 
+- HUBs are connected using a simulated L2 connection with an vxlan interface over Internet. 
 - Sites created two different ADVPN with Hubs where eBGP is used for dynamic routing. 
 - Fortigate configuration of HUB 1 deployment needs to be updated with public IP of HUB 2 for configuring vxlan interface. For this a Postman collection can be used that can be found [here](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T1.hubAWS/postman)
 - Variable files (var1.tf) that can be found in deployments T2.hubAzure and T3.SiteGCP, need to be updated with publics IPs and PSK randomly generated in first T1.hubAWS deployment. 
