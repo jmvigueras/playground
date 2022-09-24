@@ -1,3 +1,10 @@
+# Create new random API key to be provisioned in FortiGates.
+resource "random_string" "advpn-ipsec-psk" {
+  length                 = 25
+  special                = false
+  numeric                = true
+}
+
 // Create VPC-SEC
 module "vpc-sec" {
     source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAWS/modules/vpc-sec"
@@ -54,6 +61,6 @@ module "fgt-ha" {
     hub-peer            = var.hub-peer
     sites_bgp-asn       = var.sites_bgp-asn
 
-    advpn-ipsec-psk     = var.advpn-ipsec-psk
+    advpn-ipsec-psk     = random_string.advpn-ipsec-psk.result
 }
 

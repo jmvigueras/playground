@@ -2,7 +2,7 @@ variable "hub-peer" {
   type = map(any)
   default = {
     "bgp-asn"        = "65002"
-    "public-ip1"     = "11.11.11.11"
+    "public-ip1"     = "22.22.22.22"
     "vxlan-ip1"      = "10.10.30.253"
   }
 }
@@ -20,6 +20,15 @@ variable "hub" {
 
 variable "sites_bgp-asn" {
   default = "65011"
+}
+
+variable "region" {
+  type = map(any)
+  default = {
+    "region"     = "eu-west-1"
+    "region_az1" = "eu-west-1a"
+    "region_az2" = "eu-west-1c"
+  }
 }
 
 // CIDR range for vpc-se
@@ -40,10 +49,5 @@ variable "vpc-spoke-2_net"{
 // CIDR range for ONPREM sites
 variable "spokes-onprem-cidr"{
   default = "192.168.0.0/16"
-}
-
-// mpls PSK IPSEC
-variable "advpn-ipsec-psk" {
-  default = "4v3ry5jlsd87jf3c5h4r3dt8y"
 }
 

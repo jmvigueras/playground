@@ -1,6 +1,6 @@
 // Create Resource Group
 resource "azurerm_resource_group" "rg-regiona" {
-  name     = "${var.prefix}-rg-bnk"
+  name     = "${var.prefix}-rg"
   location = var.regiona
 
   tags = {

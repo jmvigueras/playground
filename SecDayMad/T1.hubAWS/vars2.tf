@@ -24,15 +24,6 @@ variable "tag-env" {
   default     = "terraform"
 }
 
-variable "region" {
-  type = map(any)
-  default = {
-    "region"     = "eu-west-1"
-    "region_az1" = "eu-west-1a"
-    "region_az2" = "eu-west-1c"
-  }
-}
-
 #############################################################################################################
 #  AMI
 // AMIs are for FGTVM-AWS(PAYG) - 7.2.0

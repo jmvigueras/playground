@@ -40,7 +40,7 @@ output "TestVM_spoke-2-IP" {
 }
 
 output "advpn_ipsec-psk-key" {
-  value = var.advpn-ipsec-psk
+  value = random_string.advpn-ipsec-psk.result
 }
 
 output "api_key" {

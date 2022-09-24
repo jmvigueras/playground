@@ -3,7 +3,7 @@ variable "hub-peer" {
   type = map(any)
   default = {
     "bgp-asn"        = "65001"
-    "public-ip1"     = "54.155.35.17"
+    "public-ip1"     = "11.11.11.11"
     "vxlan-ip1"      = "10.10.30.254"
   }
 }
@@ -17,6 +17,12 @@ variable "hub" {
     "vxlan-ip1"      = "10.10.30.253"
     "advpn-net"      = "10.10.20.0/24"
   }
+}
+
+//Region for HUB Azure deployment
+variable "regiona" {
+  type    = string
+  default = "eastus2"
 }
 
 // CDIR range /20 for VNET FGT in region A
@@ -37,4 +43,9 @@ variable "vnet-spoke-2_net" {
 // CIDR range for entire network sites
 variable "spokes-onprem-cidr" {
   default = "192.168.0.0/16"
+}
+
+// ADVPN PSK IPSEC Fortinet
+variable "advpn-ipsec-psk" {
+  default = "jvv7TcGyWnZzScODdA96YVJsW"
 }

@@ -10,11 +10,6 @@ variable "prefix" {
   default = "terraform"
 }
 
-// ADVPN PSK IPSEC Fortinet
-variable "advpn-ipsec-psk" {
-  default = "sample-password"
-}
-
 // S2S PSK IPSEC Virtual Network Gateways (MPLS simulation)
 variable "s2s-ipsec-psk" {
   default = "sample-password"
@@ -37,12 +32,6 @@ variable "size" {
 variable "size-vm" {
   type    = string
   default = "Standard_B1ls"
-}
-
-//Region for HUB A deployment
-variable "regiona" {
-  type    = string
-  default = "eastus2"
 }
 
 // License Type to create FortiGate-VM
