@@ -10,13 +10,14 @@ This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 
 
 ## Deployment Overview
 
-- The full deployment is a multi HUB enviroment with 2 hubs and 1 site. 
+- Full deployment is a multi HUB enviroment with 2 hubs and 1 site. 
 - HUB 1 is deployed in AWS. 
 - HUB 2 is deployed in Azure.
 - Site is deployed in GCP.
 - HUBs are connected over a simulated L2 connection using vxlan over Internet. 
 - Sites created two different ADVPN with Hubs where eBGP is used for dynamic routing. 
-- Fortigate configuration of HUB 1 deployment needs to be updated with the public IP of HUB 2 for configuring vxlan interface. For this a Postman collection can be used that can be found [here](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T1.hubAWS/postman)
+- Fortigate configuration of HUB 1 deployment needs to be updated with public IP of HUB 2 for configuring vxlan interface. For this a Postman collection can be used that can be found [here](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T1.hubAWS/postman)
+- Variable files (var1.tf) that can be found in deployments T2.hubAzure and T3.SiteGCP, need to be updated with publics IPs and PSK randomly generated in first T1.hubAWS deployment. 
 
 ## Diagram solution
 
