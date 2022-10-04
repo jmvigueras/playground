@@ -1,0 +1,8 @@
+# GCP project name
+project = "<your-gcp-project>"
+
+# GCP oauth access token
+token = "<secure-auth-token>"
+
+# GCP resourcers prefix description
+prefix = "<prefix-for-objets>"
