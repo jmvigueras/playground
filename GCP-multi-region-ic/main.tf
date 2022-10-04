@@ -74,7 +74,13 @@ module "fgt-c1" {
         ic-1          = cidrhost(module.vpc-c2.subnet_cidrs["ic-1-s1"],10)
         ic-2          = cidrhost(module.vpc-c2.subnet_cidrs["ic-2-s2"],10)
         ic-hck        = cidrhost(module.vpc-c2.subnet_cidrs["private-pro"],15)
-    } 
+    }
+    ipsec_ips = {
+        local-1       = "10.0.10.1"
+        peer-1        = "10.0.10.2"
+        local-2       = "10.0.20.1"
+        peer-2        = "10.0.20.2"
+    }
 }
 
 module "fgt-c2" {
@@ -106,6 +112,12 @@ module "fgt-c2" {
         ic-1          = cidrhost(module.vpc-c1.subnet_cidrs["ic-1-s1"],10)
         ic-2          = cidrhost(module.vpc-c1.subnet_cidrs["ic-2-s2"],10)
         ic-hck        = cidrhost(module.vpc-c1.subnet_cidrs["private-pro"],15)
+    }
+    ipsec_ips = {
+        local-1       = "10.0.10.2"
+        peer-1        = "10.0.10.1"
+        local-2       = "10.0.20.2"
+        peer-2        = "10.0.20.1"
     } 
 }
 
