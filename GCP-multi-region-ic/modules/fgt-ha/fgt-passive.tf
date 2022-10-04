@@ -76,7 +76,7 @@ data "template_file" "setup-passive" {
     adminsport    = var.adminsport
     api-key           = var.api-key
     admin-cidr        = var.admin-cidr
-    
+
     fgt_id        = "${var.c_id}-fgt-passive"
     fgt_priority  = "100"
 
@@ -111,6 +111,11 @@ data "template_file" "setup-passive" {
     ic-1-peer_ip      = var.ic-peer_ips["ic-1"]
     ic-2-peer_ip      = var.ic-peer_ips["ic-2"]
     ic-peer_ip-hck    = var.ic-peer_ips["ic-hck"]
+
+    ipsec_local-1     = var.ipsec_ips["local-1"]
+    ipsec_peer-1      = var.ipsec_ips["peer-1"]
+    ipsec_local-2     = var.ipsec_ips["local-2"]
+    ipsec_peer-2      = var.ipsec_ips["peer-2"]
   }
 }
 

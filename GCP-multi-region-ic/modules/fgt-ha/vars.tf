@@ -113,3 +113,13 @@ variable "ic-peer_ips" {
     ic-hck        = "172.17.4.138"
   }
 }
+
+variable "ipsec_ips" {
+  type = map(any)
+  default = {
+    local-1       = "10.0.10.1"
+    peer-1        = "10.0.10.2"
+    local-2       = "10.0.20.1"
+    peer-2        = "10.0.20.2"
+  }
+}

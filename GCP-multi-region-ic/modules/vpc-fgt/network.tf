@@ -30,6 +30,7 @@ resource "google_compute_subnetwork" "subnet_mgmt-ha-r1" {
   region        = var.region-1
   network       = google_compute_network.vpc-mgmt-ha.name
   ip_cidr_range = cidrsubnet(var.vpc_cidr,4,2)
+  private_ip_google_access = true
 }
 
 resource "google_compute_subnetwork" "subnet_mgmt-ha-r2" {
@@ -37,6 +38,7 @@ resource "google_compute_subnetwork" "subnet_mgmt-ha-r2" {
   region        = var.region-2
   network       = google_compute_network.vpc-mgmt-ha.name
   ip_cidr_range = cidrsubnet(var.vpc_cidr,4,3)
+  private_ip_google_access = true
 }
 
 ### Public InterConnexion 1 ###

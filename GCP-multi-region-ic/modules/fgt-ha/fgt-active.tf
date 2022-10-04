@@ -108,7 +108,7 @@ data "template_file" "setup-active" {
     port4_gw   = cidrhost(var.subnet_cidrs["private-fgt-r1"],1)
 
     peer_hb_ip        = cidrhost(var.subnet_cidrs["mgmt-ha-r2"],11)
-    
+
     ipsec-psk-key     = var.ipsec-psk-key
     private-pro_cidr  = var.subnet_cidrs["private-pro"]
 
@@ -118,5 +118,10 @@ data "template_file" "setup-active" {
     ic-1-peer_ip      = var.ic-peer_ips["ic-1"]
     ic-2-peer_ip      = var.ic-peer_ips["ic-2"]
     ic-peer_ip-hck    = var.ic-peer_ips["ic-hck"]
+
+    ipsec_local-1     = var.ipsec_ips["local-1"]
+    ipsec_peer-1      = var.ipsec_ips["peer-1"]
+    ipsec_local-2     = var.ipsec_ips["local-2"]
+    ipsec_peer-2      = var.ipsec_ips["peer-2"]
   }
 }
