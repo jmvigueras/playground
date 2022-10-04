@@ -74,6 +74,9 @@ data "template_file" "setup-passive" {
   template = file("${path.module}/fgt.conf")
   vars = {
     adminsport    = var.adminsport
+    api-key           = var.api-key
+    admin-cidr        = var.admin-cidr
+    
     fgt_id        = "${var.c_id}-fgt-passive"
     fgt_priority  = "100"
 
@@ -98,14 +101,13 @@ data "template_file" "setup-passive" {
     port4_gw   = cidrhost(var.subnet_cidrs["private-fgt-r2"],1)
 
     peer_hb_ip = cidrhost(var.subnet_cidrs["mgmt-ha-r1"],10)
-    
+
+    ipsec-psk-key     = var.ipsec-psk-key
+    private-pro_cidr  = var.subnet_cidrs["private-pro"]
+
     ic-1-peer_cidr    = var.ic-peer_cidrs["ic-1"]
     ic-2-peer_cidr    = var.ic-peer_cidrs["ic-2"]
     ic-pro-peer_cidr  = var.ic-peer_cidrs["ic-pro"]
-
-    ipsec-psk-key     = var.ipsec-psk-key
-    api-key           = var.api-key
-    admin-cidr        = var.admin-cidr
     ic-1-peer_ip      = var.ic-peer_ips["ic-1"]
     ic-2-peer_ip      = var.ic-peer_ips["ic-2"]
     ic-peer_ip-hck    = var.ic-peer_ips["ic-hck"]
