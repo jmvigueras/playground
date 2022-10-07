@@ -42,20 +42,20 @@ resource "azurerm_network_security_rule" "nsr-hub-egress-spoke" {
 # Connect the security group to the network interfaces
 resource "azurerm_network_interface_security_group_association" "ni-spoke-1-vm-1-nsg" {
   network_interface_id      = azurerm_network_interface.ni-spoke-1-vm-1.id
-  network_security_group_id = azurerm_network_security_rule.nsr-hub-ingress-spoke.id
+  network_security_group_id = azurerm_network_security_group.nsg-hub-spoke.id
 }
 
 resource "azurerm_network_interface_security_group_association" "ni-spoke-1-vm-2-nsg" {
   network_interface_id      = azurerm_network_interface.ni-spoke-1-vm-2.id
-  network_security_group_id = azurerm_network_security_rule.nsr-hub-ingress-spoke.id
+  network_security_group_id = azurerm_network_security_group.nsg-hub-spoke.id
 }
 
 resource "azurerm_network_interface_security_group_association" "ni-spoke-2-vm-1-nsg" {
   network_interface_id      = azurerm_network_interface.ni-spoke-2-vm-1.id
-  network_security_group_id = azurerm_network_security_rule.nsr-hub-ingress-spoke.id
+  network_security_group_id = azurerm_network_security_group.nsg-hub-spoke.id
 }
 
 resource "azurerm_network_interface_security_group_association" "ni-spoke-2-vm-2-nsg" {
   network_interface_id      = azurerm_network_interface.ni-spoke-2-vm-2.id
-  network_security_group_id = azurerm_network_security_rule.nsr-hub-ingress-spoke.id
+  network_security_group_id = azurerm_network_security_group.nsg-hub-spoke.id
 }

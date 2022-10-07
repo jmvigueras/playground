@@ -1,4 +1,11 @@
 
+resource "azurerm_availability_set" "av-set-1" {
+  name                = "${var.prefix}-availset-1"
+  location            = var.location
+  resource_group_name = var.resourcegroup_name
+  managed             = true
+}
+
 resource "azurerm_lb" "gwlb" {
   name                = "${var.prefix}-GatewayLoadBalancer"
   location            = var.location
@@ -18,13 +25,13 @@ resource "azurerm_lb_backend_address_pool" "gwlbbackend" {
   name              = "BackEndPool"
 
   tunnel_interface  {
-    identifier = "1"
+    identifier = "800"
     type       = "Internal"
     protocol   = "VXLAN"
     port       = "10800"
   }
   tunnel_interface  {
-    identifier = "2"
+    identifier = "801"
     type       = "External"
     protocol   = "VXLAN"
     port       = "10801"
