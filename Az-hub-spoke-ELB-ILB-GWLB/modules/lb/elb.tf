@@ -1,3 +1,7 @@
+###################################
+#Create External LB
+##################################
+
 resource "azurerm_public_ip" "elb-pip" {
   name                = "${var.prefix}-elb-pip"
   location            = var.location

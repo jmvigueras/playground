@@ -94,6 +94,8 @@ data "template_file" "activeFortiGate" {
     port3_gw        = cidrhost(var.fgt-subnet_cidrs["private"],1)
 
     peerip          = cidrhost(var.fgt-subnet_cidrs["mgmt"],11)
+    gwlb_ip         = var.gwlb_ip
+    
     tenant          = var.tenant_id
     subscription    = var.subscription_id
     clientid        = var.client_id

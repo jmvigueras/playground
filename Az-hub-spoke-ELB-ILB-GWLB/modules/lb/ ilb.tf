@@ -1,5 +1,5 @@
 ###################################
-#Create LB
+#Create Internal LB
 ##################################
 
 resource "azurerm_lb" "ilb" {

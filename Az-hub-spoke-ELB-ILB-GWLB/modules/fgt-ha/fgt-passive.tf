@@ -82,6 +82,7 @@ data "template_file" "passiveFortiGate" {
     port3_gw        = cidrhost(var.fgt-subnet_cidrs["private"],1)
 
     peerip          = cidrhost(var.fgt-subnet_cidrs["mgmt"],10)
+    gwlb_ip         = var.gwlb_ip
     
     tenant          = var.tenant_id
     subscription    = var.subscription_id
@@ -120,7 +121,6 @@ data "template_file" "passiveFortiGate" {
     rs-spoke2_bgp-asn         = var.rs-spoke["rs2_bgp-asn"]
 
     spokes-onprem-cidr        = var.spokes-onprem-cidr
-
     advpn-ipsec-psk           = var.advpn-ipsec-psk
   }
 }

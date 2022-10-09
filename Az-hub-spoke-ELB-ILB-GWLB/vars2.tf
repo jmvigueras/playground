@@ -1,8 +1,14 @@
-// Azure configuration
+// Azure configuration for Terraform providers
 variable "subscription_id" {}
 variable "client_id" {}
 variable "client_secret" {}
 variable "tenant_id" {}
+
+// Azure configuration for FGT SDN connector
+variable "fgt-subscription_id" {}
+variable "fgt-client_id" {}
+variable "fgt-client_secret" {}
+variable "fgt-tenant_id" {}
 
 # Azure resourcers prefix description
 variable "prefix" {
@@ -70,7 +76,7 @@ variable "fgtsku" {
 // FOS version
 variable "fgtversion" {
   type    = string
-  default = "7.2.0"
+  default = "7.2.1"
 }
 
 variable "adminusername" {

@@ -124,6 +124,10 @@ variable "rs-spoke" {
   }
 }
 
+variable "gwlb_ip" {
+  default = "172.31.3.15"
+}
+
 variable "sites_bgp-asn" {
   default = "65011"
 }
@@ -189,7 +193,7 @@ variable "fgtoffer" {
 // FOS version
 variable "fgtversion" {
   type    = string
-  default = "7.2.0"
+  default = "7.2.1"
 }
 
 // BYOL sku: fortinet_fg-vm

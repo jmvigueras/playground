@@ -40,10 +40,10 @@ module "fgt-ha" {
     prefix           = var.prefix
     location         = var.location
 
-    subscription_id  = var.subscription_id
-    client_id        = var.client_id
-    client_secret    = var.client_secret
-    tenant_id        = var.tenant_id
+    subscription_id  = var.fgt-subscription_id
+    client_id        = var.fgt-client_id
+    client_secret    = var.fgt-client_secret
+    tenant_id        = var.fgt-tenant_id
 
     resourcegroup_name       = azurerm_resource_group.rg.name
     storage-account_endpoint = azurerm_storage_account.fgtstorageaccount.primary_blob_endpoint
@@ -82,6 +82,8 @@ module "fgt-ha" {
       rs2_bgp-asn      = "65515"
     }
 
+    gwlb_ip             = cidrhost(module.vnet-fgt.subnet_cidrs["private"],15)
+
     spoke-vnet_cidrs     = module.vnet-spoke.vnet_cidrs
     spoke-subnet_cidrs   = module.vnet-spoke.subnet_cidrs
 
@@ -89,8 +91,6 @@ module "fgt-ha" {
     fgt-passive-ni_names  = module.vnet-fgt.fgt-passive-ni_names
 
     cluster-public-ip_name    = module.vnet-fgt.cluster-public-ip_name
-
-    //rt-private_name       = azurerm_route_table.rt-vnet-fgt-private.name
 }
 
 
@@ -106,6 +106,7 @@ module lb {
   subnet-private = {
     cidr      = module.vnet-fgt.subnet_cidrs["private"]
     id        = module.vnet-fgt.subnet_ids["private"]
+    vnet_id   = module.vnet-fgt.vnet_ids["vnet-fgt"]
   }
 
   fgt-ni_ids = {
@@ -131,10 +132,10 @@ module site1 {
   resourcegroup_name  = azurerm_resource_group.rg.name
   storage-account_endpoint = azurerm_storage_account.fgtstorageaccount.primary_blob_endpoint
 
-  subscription_id  = var.subscription_id
-  client_id        = var.client_id
-  client_secret    = var.client_secret
-  tenant_id        = var.tenant_id
+  subscription_id  = var.fgt-subscription_id
+  client_id        = var.fgt-client_id
+  client_secret    = var.fgt-client_secret
+  tenant_id        = var.fgt-tenant_id
 
   adminusername    = var.adminusername
   adminpassword    = var.adminpassword

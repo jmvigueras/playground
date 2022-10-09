@@ -22,6 +22,7 @@ variable "subnet-private" {
   default = {
     cidr      = "172.31.3.0/24"
     id        = ""
+    vnet_id   = ""
   }
 }
 

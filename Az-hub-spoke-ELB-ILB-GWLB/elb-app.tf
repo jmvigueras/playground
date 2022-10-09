@@ -19,7 +19,7 @@ resource "azurerm_lb" "elb-app-spoke-1" {
   frontend_ip_configuration {
     name                 = "${var.prefix}-elb-app-spoke-1-front-pip"
     public_ip_address_id = azurerm_public_ip.elb-app-spoke-1-pip.id
-    #gateway_load_balancer_frontend_ip_configuration_id = module.lb.gwlb_frontip_config_id
+    // gateway_load_balancer_frontend_ip_configuration_id = module.lb.gwlb_frontip_config_id
   }
 }
 
@@ -82,7 +82,7 @@ resource "azurerm_lb" "elb-app-spoke-2" {
   frontend_ip_configuration {
     name                 = "${var.prefix}-elb-app-spoke-2-front-pip"
     public_ip_address_id = azurerm_public_ip.elb-app-spoke-2-pip.id
-    #gateway_load_balancer_frontend_ip_configuration_id = module.lb.gwlb_frontip_config_id
+    gateway_load_balancer_frontend_ip_configuration_id = module.lb.gwlb_frontip_config_id
   }
 }
 
