@@ -11,7 +11,7 @@ variable "hub-peer" {
     hck-srv-ip1     = "172.31.16.10"
     hck-srv-ip2     = "172.31.17.10"
     hck-srv-ip3     = "172.31.19.10"
-    cidr            = "172.31.0.0/20"
+    cidr            = "172.31.0.0/21"
     advpn-psk       = "secret-psk-key"
   }
 }
@@ -24,7 +24,7 @@ variable "hub" {
     bgp-id         = "10.10.10.254"
     vxlan-ip1      = "10.10.30.254"
     advpn-net      = "10.10.10.0/24"
-    cidr           = "172.30.0.0/20"
+    cidr           = "172.30.0.0/21"
   }
 }
 
