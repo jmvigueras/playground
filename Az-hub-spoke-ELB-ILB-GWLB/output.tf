@@ -23,9 +23,9 @@ output "hub-fgt-bgp" {
   }
 }
 
-output "advpn" {
+output "hub1-advpn-psk-key" {
   value = {
-    advpn_ipsec-psk-key = var.advpn-ipsec-psk
+    advpn_ipsec-psk-key = random_id.advpn-psk-key.hex
   }
 }
 

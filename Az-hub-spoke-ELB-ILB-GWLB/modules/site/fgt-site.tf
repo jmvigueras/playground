@@ -94,8 +94,6 @@ data "template_file" "siteFortiGate" {
 
     spoke1-net           = cidrsubnet(var.site["cidr"],4,8)
 
-    advpn-ipsec-psk      = var.advpn-ipsec-psk
-
     site_bgp-asn         = var.site["bgp-asn"]
     site_advpn-ip1       = var.site["advpn-ip1"]
     site_advpn-ip2       = var.site["advpn-ip2"]
@@ -104,7 +102,10 @@ data "template_file" "siteFortiGate" {
     hub1_public-ip1      = var.hub1["public-ip1"]
     hub1_advpn-ip1       = var.hub1["advpn-ip1"]
     hub1_hck-srv-ip1     = var.hub1["hck-srv-ip1"]
+    hub1_hck-srv-ip2     = var.hub1["hck-srv-ip2"]
+    hub1_hck-srv-ip3     = var.hub1["hck-srv-ip3"]
     hub1_cidr            = var.hub1["cidr"]
+    hub1_advpn-psk       = var.hub1["advpn-psk"]
 
     hub2_bgp-asn         = var.hub2["bgp-asn"]
     hub2_public-ip1      = var.hub2["public-ip1"]
@@ -113,6 +114,7 @@ data "template_file" "siteFortiGate" {
     hub2_hck-srv-ip2     = var.hub2["hck-srv-ip2"]
     hub2_hck-srv-ip3     = var.hub2["hck-srv-ip3"]
     hub2_cidr            = var.hub2["cidr"]
+    hub2_advpn-psk       = var.hub2["advpn-psk"]
   }
 }
 

@@ -95,8 +95,8 @@ variable "fgt-subnet_cidrs"{
 variable "hub-peer" {
   type = map(any)
   default = {
-    "bgp-asn"        = "65001"
-    "public-ip1"     = "11.11.11.11"
+    "bgp-asn"        = "65002"
+    "public-ip1"     = "22.22.22.22"
     "vxlan-ip1"      = "10.10.30.253"
   }
 }
@@ -104,11 +104,11 @@ variable "hub-peer" {
 variable "hub" {
   type = map(any)
   default = {
-    "id"             = "HubAWS"
-    "bgp-asn"        = "65002"
+    "id"             = "HubAazure"
+    "bgp-asn"        = "65001"
     "bgp-id"         = "10.10.10.254"
-    "vxlan-ip1"      = "10.10.30.253"
-    "advpn-net"      = "10.10.20.0/24"
+    "vxlan-ip1"      = "10.10.30.254"
+    "advpn-net"      = "10.10.10.0/24"
   }
 }
 

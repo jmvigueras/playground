@@ -2,9 +2,9 @@
 ## Introduction
 ### This topology is only recommended for using with FOS 7.0.5 and later, since FSO 7.0 3 ports only HA setup is supported.
 
-This IaC is a part of a full deployment of a HUB and Spoke with 2 HUBs and 1 site. In particular, here we have the code to deploy one of the hubs in Azure.
+This IaC is a part of a full deployment of a HUB and Spoke with 2 HUBs and 1 site. In particular, here we have the code to deploy one of the hubs in Azure and a site. 
 
-This is a didactic example to showcase how a Transit VPC should be configured to achieve a non-trivial (full mesh) scenario.
+This is a didactic example to showcase how different ways of control routing inside and between VNETs on Azure, using User Defined Routes (UDR), Azure Router Server and default routes.
 
 ## Requirements
 * [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) >= 0.12.0
@@ -22,23 +22,28 @@ This is a didactic example to showcase how a Transit VPC should be configured to
 ## Deployment overview
 Terraform deploys the following components:
    - Azure Virtual Network (vnet) with 3 subnets as hub vnet (subnets: mgmt-ha, public, private).
-   - Two vnet as spokes peered with firewall vnet (vnet-spoke-1, vnet-spoke-2), route tables updated by Fortinet SDN-Connector.
+   - Two vnet as spokes peered with firewall vnet (vnet-spoke-1, vnet-spoke-2)
    - Two FortiGate-VM (BYOL/PAYG) instances with four NICs in HA active/passive (default PAYG)
    - Firewalls rules to allow traffic E-W spokes, N-S spoke-public and E-W spoke sites connected with ADVPN.
    - IPSEC connections using ADVPN to site (there is a deployment in GCP as part of the full scenario outsite this particular script)
-   - Two Ubuntu Client instance in spokes vnet subnets.
+   - Four Ubuntu Client instance in spokes vnet subnets.
    - eBGP routing over the advpn tunnels.
-   - 3 publics IPs:
+   - SQL Server with private link endpoints in both spoke VNETs
+   - Private DNS zone
+   - Publics IPs:
       - 2 public IPs for fortigate units management
-      - 1 cluster public IP for Internet access (cluster-public-ip, this IP is shared between cluster and updated by SDN Connector in case of failure)
+      - 1 public IP for External Load Balancer FGT HA cluster
+      - 2 publics IP for External Load Balancer APP1 and APP2 with backend servers deployed in spoke subnets
 
 ## Deployment considerations:
+      - Create file terraform.tfvars using terraform.tfvars.example as template 
       - Update variables in var1.tf with data from HUB1 deployment
+      - Update varialbes in var2.tf for fine tunning
       - You will be charged for this deployment
 
 ## Diagram solution
 
-![FortiGate reference architecture overview](images/HubAzure-FGT-HA-peering.png)
+![FortiGate reference architecture overview](images/Demo-Azure-Routing-FGT.png)
 
 ## Deployment
 To deploy the FortiGate-VM to Azure:

@@ -16,7 +16,7 @@ module "vnet-fgt" {
     location              = var.location
     resourcegroup_name    = azurerm_resource_group.rg.name
     
-    vnet-fgt_cidr         = var.vnet-fgt_cidr
+    vnet-fgt_cidr         = var.hub["cidr"]
     admin_port            = var.admin_port
     admin_cidr            = var.admin_cidr
 }
@@ -33,7 +33,12 @@ module "vnet-spoke" {
     vnet-spoke-2_cidr    = var.vnet-spoke-2_cidr
 }
 
-// Create FGT cluster in region A
+// Create ADVPN IPSEC PSK
+resource "random_id" "advpn-psk-key" {
+  byte_length = 20
+}
+
+// Create FGT cluster in region A (HUB1)
 module "fgt-ha" {
     source = "./modules/fgt-ha"
 
@@ -52,7 +57,7 @@ module "fgt-ha" {
     hub-peer  = var.hub-peer
     
     sites_bgp-asn         = var.sites_bgp-asn
-    advpn-ipsec-psk       = var.advpn-ipsec-psk
+    advpn-ipsec-psk       = random_id.advpn-psk-key.hex
     adminusername         = var.adminusername
     adminpassword         = var.adminpassword
     admin_port            = var.admin_port
@@ -124,6 +129,7 @@ module lb {
   }
 }
 
+// Create spoke site 1
 module site1 {
   source = "./modules/site"
 
@@ -144,20 +150,32 @@ module site1 {
   
   site = {
     site_id         = "1"
-    cidr            = "192.168.0.0/20"
     bgp-asn         = "65011"
-    advpn-ip1       = "10.10.10.10"
-    advpn-ip2       = "10.10.20.10"
+    cidr            = cidrsubnet(var.spokes-onprem-cidr,4,1)
+    advpn-ip1       = cidrhost(var.hub["advpn-net"],10)
+    advpn-ip2       = cidrhost(var.hub-peer["advpn-net"],10)
   }
 
-  hub2 = {
-    bgp-asn         = "65002"
-    public-ip1      = "20.19.210.54"
-    advpn-ip1       = "10.10.20.1"
+  hub1 = {
+    bgp-asn         = var.hub["bgp-asn"]
+    public-ip1      = module.lb.elb_public-ip
+    advpn-ip1       = cidrhost(var.hub["advpn-net"],1)
     hck-srv-ip1     = module.vnet-spoke.ni_ips["spoke-1_subnet1"]
     hck-srv-ip2     = module.vnet-spoke.ni_ips["spoke-1_subnet2"]
     hck-srv-ip3     = module.vnet-spoke.ni_ips["spoke-2_subnet1"]
-    cidr            = var.vnet-fgt_cidr
+    cidr            = var.hub["cidr"]
+    advpn-psk       = random_id.advpn-psk-key.hex
+  }
+
+  hub2 = {
+    bgp-asn         = var.hub-peer["bgp-asn"]
+    public-ip1      = var.hub-peer["public-ip1"]
+    advpn-ip1       = cidrhost(var.hub-peer["advpn-net"],1)
+    hck-srv-ip1     = var.hub-peer["hck-srv-ip1"]
+    hck-srv-ip2     = var.hub-peer["hck-srv-ip2"]
+    hck-srv-ip3     = var.hub-peer["hck-srv-ip3"]
+    cidr            = var.hub-peer["cidr"]
+    advpn-psk       = var.hub-peer["advpn-psk"]
   }
 }
 

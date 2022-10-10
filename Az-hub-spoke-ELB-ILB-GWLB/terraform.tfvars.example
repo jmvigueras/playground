@@ -1,22 +1,26 @@
-// Change to your own azure environment
+# Change to your own azure environment for deployment with Terraform
 subscription_id = "xxx-xxx-xxx"
 client_id       = "xxx-xxx-xxx"
 client_secret   = "xxxxxxxxx"
 tenant_id       = "xxx-xxx-xxx"
 
+# Change to your own azure environment for SDN connector FGT HA
+fgt-subscription_id = "xxx-xxx-xxx"
+fgt-client_id       = "xxx-xxx-xxx"
+fgt-client_secret   = "xxxxxxxxx"
+fgt-tenant_id       = "xxx-xxx-xxx"
+
+# Custom prefix for objets deployed on Azure
 prefix = "my-custom-prefix"
-advpn-ipsec-psk = "PSK-sample-key"
+ 
+# Update variables defined in vars1.tf if you want to customize cidr ranges for this HUB deployment
+# - hub (parameters for HUB Azure deployment)
+# - spokes-onprem-cidr (cidr for sites, default 192.168.0.0/16)
+# - vnet-spoke-1_cidr (cidr for vnet spoke 1 peering with VNET FGT)
+# - vnet-spoke-2_cidr (cidr for vnet spoke 2 peering with VNET FGT)
 
-hub-peer = {
-    "bgp-asn"        = "65002"
-    "ip-public-ip1"  = "11.11.11.11"
-    "vxlan-ip1"      = "10.10.30.253"
-}
-
-hub = {
-    "id"             = "HubAzure"
-    "bgp-asn"        = "65001"
-    "bgp-id"         = "10.10.10.254"
-    "vxlan-ip1"      = "10.10.30.254"
-    "advpn-ip1"      = "10.10.10.254"
-}
+# Update variables defined in vars2.tf for fine tune this deployment, recomended:
+# admin_cidr (cidr configured as source in NSG applied to management port, default 0.0.0.0/0)
+# admin_port (port for management access)
+# adminusername
+# adminpassword
