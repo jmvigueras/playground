@@ -22,6 +22,18 @@ This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 
 
 ![FortiGate reference architecture overview](images/SecDayMAD-Training-Overview.png)
 
+### HubAWS diagram
+
+![Hub AWS architecture overview](images/HubAWS-detail-deployment.png)
+
+### HubAazure diagram
+
+![Hub AWS architecture overview](images/HubAzure-detail-deployment.png)
+
+### SiteGCP diagram
+
+![SiteGCP architecture overview](images/SiteGCP-detail-deployment.png)
+
 ## Deployment
 * Clone the repository.
 * Configure accesss secrets to access AWS, Azure and GCP in each terraform.tfvars.example which is allocated in folders of following deploment: [T1.hubAWS](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T1.hubAWS), [T2.hubAzure](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T2.hubAzure) and [T3.siteGCP](https://github.com/jmvigueras/playground/tree/main/SecDayMad/T3.siteGCP).  And rename `terraform.tfvars.example` to `terraform.tfvars`.
