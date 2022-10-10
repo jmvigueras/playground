@@ -63,22 +63,23 @@ module "fgt-ha" {
     admin_port            = var.admin_port
     admin_cidr            = var.admin_cidr
     
-    fgt-active-ni_ids  = [
+    fgt-subnet_cidrs      = module.vnet-fgt.subnet_cidrs
+    fgt-active-ni_ids     = [
       module.vnet-fgt.fgt-active-ni_ids["port1"],
       module.vnet-fgt.fgt-active-ni_ids["port2"],
       module.vnet-fgt.fgt-active-ni_ids["port3"]
     ]
-    fgt-passive-ni_ids = [
+    fgt-passive-ni_ids    = [
       module.vnet-fgt.fgt-passive-ni_ids["port1"],
       module.vnet-fgt.fgt-passive-ni_ids["port2"],
       module.vnet-fgt.fgt-passive-ni_ids["port3"]
     ]
-    fgt-ni-nsg_ids    = [
+    fgt-ni-nsg_ids        = [
       module.vnet-fgt.nsg_ids["mgmt"], 
       module.vnet-fgt.nsg_ids["public"],
       module.vnet-fgt.nsg_ids["private"]
     ] 
-    rs-spoke          = {
+    rs-spoke              = {
       rs1_ip1          = tolist(module.rs-spoke-1.rs_ips)[0]
       rs1_ip2          = tolist(module.rs-spoke-1.rs_ips)[1]
       rs1_bgp-asn      = "65515"

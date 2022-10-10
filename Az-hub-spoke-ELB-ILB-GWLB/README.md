@@ -43,7 +43,19 @@ Terraform deploys the following components:
 
 ## Diagram solution
 
-![FortiGate reference architecture overview](images/Demo-Azure-Routing-FGT.png)
+![Multi cloud architecture overview](images/Demo-Azure-Routing-FGT.png)
+
+### HubAWS diagram
+
+![Hub AWS architecture overview](images/HubAWS-detail-deployment.png)
+
+### HubAazure diagram
+
+![Hub AWS architecture overview](images/HubAzure-detail-deployment.png)
+
+### SiteGCP diagram
+
+![SiteGCP architecture overview](images/SiteGCP-detail-deployment.png)
 
 ## Deployment
 To deploy the FortiGate-VM to Azure:

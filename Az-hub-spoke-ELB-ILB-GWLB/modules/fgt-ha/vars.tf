@@ -67,28 +67,27 @@ variable "fgt-ni-nsg_ids"{
 variable "spoke-subnet_cidrs"{
   type = map(any)
   default = {
-    spoke-1_subnet1 = "172.31.16.0/25"
-    spoke-1_subnet2 = "172.31.17.0/25"
-    spoke-1_subnet1 = "172.31.18.0/25"
-    spoke-1_subnet2 = "172.31.19.0/25"
+    spoke-1_subnet1 = "172.30.16.0/25"
+    spoke-1_subnet2 = "172.30.17.0/25"
+    spoke-1_subnet1 = "172.30.18.0/25"
+    spoke-1_subnet2 = "172.30.19.0/25"
   }
 }
 
 variable "spoke-vnet_cidrs"{
   type = map(any)
   default = {
-    spoke-1    = "172.31.16.0/23"
-    spoke-2    = "172.31.18.0/23"
+    spoke-1    = "172.30.16.0/23"
+    spoke-2    = "172.30.18.0/23"
   }
 }
 
 variable "fgt-subnet_cidrs"{
   type = map(any)
   default = {
-    mgmt      = "172.31.1.0/24"
-    public    = "172.31.2.0/24"
-    private   = "172.31.3.0/24"
-    advpn     = "172.31.4.0/24"
+    mgmt      = "172.30.1.0/24"
+    public    = "172.30.2.0/24"
+    private   = "172.30.3.0/24"
   }
 }
 
@@ -115,17 +114,17 @@ variable "hub" {
 variable "rs-spoke" {
   type = map(any)
   default = {
-    rs1_ip1          = "172.31.17.132"
-    rs1_ip2          = "172.31.17.133"
+    rs1_ip1          = "172.30.17.132"
+    rs1_ip2          = "172.30.17.133"
     rs1_bgp-asn      = "65515"
-    rs2_ip1          = "172.31.19.132"
-    rs2_ip2          = "172.31.19.133"
+    rs2_ip1          = "172.30.19.132"
+    rs2_ip2          = "172.30.19.133"
     rs2_bgp-asn      = "65515"
   }
 }
 
 variable "gwlb_ip" {
-  default = "172.31.3.15"
+  default = "172.30.3.15"
 }
 
 variable "sites_bgp-asn" {

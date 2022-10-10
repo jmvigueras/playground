@@ -18,11 +18,11 @@ variable "location" {
 }
 
 variable "vnet-spoke-1_cidr" {
-  default = "172.31.16.0/23"
+  default = "172.30.16.0/23"
 }
 
 variable "vnet-spoke-2_cidr" {
-  default = "172.31.18.0/23"
+  default = "172.30.18.0/23"
 }
 
 

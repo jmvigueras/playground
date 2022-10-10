@@ -17,8 +17,9 @@ variable "location" {
   default = "francecentral"
 }
 
+// CIDR range
 variable "vnet-fgt_cidr" {
-  default = "172.31.0.0/20"
+  default = "172.30.0.0/20"
 }
 
 // enable accelerate network, either true or false, default is false

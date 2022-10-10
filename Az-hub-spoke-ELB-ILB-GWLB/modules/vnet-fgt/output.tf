@@ -71,6 +71,7 @@ output "subnet_cidrs"{
     mgmt      = azurerm_subnet.subnet-hamgmt.address_prefixes[0]
     public    = azurerm_subnet.subnet-public.address_prefixes[0]
     private   = azurerm_subnet.subnet-private.address_prefixes[0]
+    vgw       = azurerm_subnet.subnet-vgw.address_prefixes[0]
   }
 }
 
