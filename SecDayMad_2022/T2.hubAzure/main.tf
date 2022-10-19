@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg-regiona" {
 
 // Create VNET FGT
 module "vnet-fgt" {
-    source =  "github.com/jmvigueras/playground/SecDayMad//modules/hubAzure/modules/vnet-fgt"
+    source =  "../modules/hubAzure/modules/vnet-fgt"
 
     prefix                = var.prefix
     location              = var.regiona
@@ -23,7 +23,7 @@ module "vnet-fgt" {
 
 // Create VNETS Spoke 1 and 2
 module "vnet-spoke" {
-    source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAzure/modules/vnet-spoke"
+    source = "../modules/hubAzure/modules/vnet-spoke"
 
     prefix                = var.prefix
     location              = var.regiona
@@ -35,7 +35,7 @@ module "vnet-spoke" {
 
 // Create FGT cluster in region A
 module "fgt-ha" {
-    source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAzure/modules/fgt-ha"
+    source = "../modules/hubAzure/modules/fgt-ha"
 
     prefix           = var.prefix
     location         = var.regiona

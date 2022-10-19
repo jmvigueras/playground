@@ -7,7 +7,7 @@ resource "random_string" "advpn-ipsec-psk" {
 
 // Create VPC-SEC
 module "vpc-sec" {
-    source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAWS/modules/vpc-sec"
+    source = "../modules/hubAWS/modules/vpc-sec"
 
     prefix          = var.prefix
     admin_cidr      = var.admin_cidr
@@ -23,7 +23,7 @@ module "vpc-sec" {
 
 // Create VPC-SPOKES
 module "vpc-spoke" {
-    source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAWS/modules/vpc-spoke"
+    source = "../modules/hubAWS/modules/vpc-spoke"
 
     prefix          = var.prefix
     region          = var.region
@@ -36,7 +36,7 @@ module "vpc-spoke" {
 
 // Create Active FGT
 module "fgt-ha" {
-    source = "github.com/jmvigueras/playground/SecDayMad//modules/hubAWS/modules/fgt-ha"
+    source = "../modules/hubAWS/modules/fgt-ha"
 
     prefix          = var.prefix
     admin_cidr      = var.admin_cidr
