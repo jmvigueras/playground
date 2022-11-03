@@ -34,7 +34,7 @@ output "public-ips" {
      cluster-public-ip_ip    = module.vnet-fgt.cluster-public-ip_ip
      elb_public-ip           = module.lb.elb_public-ip
      elb-app-spoke-1-pip     = azurerm_public_ip.elb-app-spoke-1-pip.ip_address
-     elb-app-spoke-2-pip     = azurerm_public_ip.elb-app-spoke-2-pip.ip_address
+//     elb-app-spoke-2-pip     = azurerm_public_ip.elb-app-spoke-2-pip.ip_address
   }
 }
 
