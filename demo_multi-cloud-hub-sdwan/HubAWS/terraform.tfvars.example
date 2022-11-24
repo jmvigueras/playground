@@ -1,0 +1,8 @@
+// AWS Environment
+access_key = "<AWS Access Key>"
+secret_key = "<AWS Secret Key>"
+
+keypair    = "<AWS SSH Key name>"
+
+prefix     = "<Add-to-Name-Tag>"
+advpn-ipsec-psk = "<ADVPN-IPSEC-tunnels-PSK>"
