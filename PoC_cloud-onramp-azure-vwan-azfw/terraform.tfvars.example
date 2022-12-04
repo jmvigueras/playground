@@ -19,3 +19,11 @@ vhub_peer-ip        = ["172.23.132.69", "172.23.132.68"]
 
 # CIDR ranges for new VNETs to deploy and associate with vWAN
 vwan_new-vnet_cidr  = ["172.23.135.0/25", "172.23.135.128/25"]
+
+# Detail for VNET FGT
+site_onramp = {
+    id      = "onramp"
+    cidr    = "172.23.134.0/24"
+    bgp-asn = "64552"
+    ha      = true
+}
