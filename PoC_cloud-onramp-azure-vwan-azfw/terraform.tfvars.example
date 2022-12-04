@@ -1,0 +1,21 @@
+# Change to your own azure environment for deployment with Terraform
+subscription_id = "xxx"
+clientid        = "xxx"
+secret_key      = "xxx"
+tenand_id       = "xxx"
+
+prefix        = "onramp-forti"
+location      = "westeurope"
+adminusername = "azureadmin"
+adminpassword = "Secret-Admin-123-Password"
+
+# PoC deployment details 
+resourcegroup_name  = "< resource group name >"
+azfw_id             = "< Azure Firewall ID >"
+vhub_id             = "< vHUB ID >"
+
+# vHUB peer BGP IPs
+vhub_peer-ip        = ["172.23.132.69", "172.23.132.68"]
+
+# CIDR ranges for new VNETs to deploy and associate with vWAN
+vwan_new-vnet_cidr  = ["172.23.135.0/25", "172.23.135.128/25"]
