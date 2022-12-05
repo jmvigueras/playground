@@ -1,4 +1,8 @@
-// Create table route and routes for VM bastion
+#-----------------------------------------------------------------------------
+# Create necessary table route for access bastion VM from outsite
+# - Create a table route for Bastion VM in FGT VNET
+# - RFC1918 ranges will be accessible through fortigate
+#-----------------------------------------------------------------------------
 resource "azurerm_route_table" "hub_rt-bastion" {
   name                = "${var.prefix}-hub-rt-bastion"
   location            = var.location

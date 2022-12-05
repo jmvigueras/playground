@@ -1,5 +1,7 @@
 #---------------------------------------------------------------------------------------
 # Create connection VNET FGT to vWAN and dynamic routing
+# - Create new connection to vWAN
+# - Create BGP peer connections in vHUB
 #---------------------------------------------------------------------------------------
 resource "azurerm_virtual_hub_connection" "onramp_vhub_connnection_vnet-fgt" {
   name                      = "${var.prefix}-onramp-cx-vnet-fgt"

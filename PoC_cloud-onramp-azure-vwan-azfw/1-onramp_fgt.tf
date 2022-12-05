@@ -1,5 +1,5 @@
 #--------------------------------------------------------------------------------------
-# Example of use of module
+# FGT cluster on-ramp:
 # - it will deploy fortigate (FGT) cluster as site spoke to HUB (configure "ha = true" in site var definition for FGT HA)
 # - it will use another module to create necessary VNET
 # - it will use another module to create VM bastion for testing

@@ -1,4 +1,8 @@
-// Create fortigate cluster as HUB site
+#-----------------------------------------------------------------------------
+# Create fortigate cluster as HUB
+# - Create a fortigate cluster that will act as testing HUB
+# - Use module fgt-ha-hub (github.com/jmvigueras/modules//azure/fgt-ha-hub)
+#-----------------------------------------------------------------------------
 module "hub_fgt" {
   depends_on = [module.hub_vnet-fgt]
   source     = "github.com/jmvigueras/modules//azure/fgt-ha-hub"

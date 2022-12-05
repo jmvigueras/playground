@@ -1,4 +1,5 @@
 // Variable used for creating simulated HUB in Azure
+// - Variable used in 0-hub_fgt.tf to create testion HUB
 variable "hub_cloud" {
   type = map(any)
   default = {
