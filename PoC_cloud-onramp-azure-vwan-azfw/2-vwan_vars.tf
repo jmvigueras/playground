@@ -2,7 +2,7 @@
 # - IMPORATANT - Update this variables with your wished scenario
 #----------------------------------------------------------------------------------
 
-## Update this variables in terraform.tfvars ##
+## Update these variables in terraform.tfvars ##
 
 variable "azfw_id" {
   type    = string

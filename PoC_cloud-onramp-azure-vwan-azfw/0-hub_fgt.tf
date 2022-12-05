@@ -1,7 +1,7 @@
 // Create fortigate cluster as HUB site
 module "hub_fgt" {
   depends_on = [module.hub_vnet-fgt]
-  source     = "./modules/fgt-ha-hub"
+  source      = "github.com/jmvigueras/modules//azure/fgt-ha-hub"
 
   prefix                   = "${var.prefix}-hub"
   location                 = var.location
