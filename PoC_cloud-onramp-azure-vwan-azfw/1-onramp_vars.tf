@@ -27,6 +27,8 @@ variable "hubs" {
       hck-srv-ip = "172.20.30.1"
       advpn-psk  = "super-secret-key"
       cidr       = "172.20.30.0/24"
+      network_id = "10"
+
     },
     {
       id         = "DC1"
@@ -37,6 +39,7 @@ variable "hubs" {
       hck-srv-ip = "172.20.40.1"
       advpn-psk  = "super-secret-key"
       cidr       = "172.20.40.0/24"
+      network_id = "11"
     },
     {
       id         = "DC2"
@@ -47,6 +50,7 @@ variable "hubs" {
       hck-srv-ip = "172.25.30.1"
       advpn-psk  = "super-secret-key"
       cidr       = "172.25.30.0/24"
+      network_id = "12"
     },
     {
       id         = "DC2"
@@ -57,6 +61,7 @@ variable "hubs" {
       hck-srv-ip = "172.25.30.1"
       advpn-psk  = "super-secret-key"
       cidr       = "172.25.40.0/24"
+      network_id = "13"
     }
   ]
 }
