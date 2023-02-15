@@ -4,19 +4,14 @@
 #-----------------------------------------------------------------------------------------------------
 locals {
 
-  prefix        = "fgt-ha"
+  prefix        = "fgt-ha" // prefix added to all deployed assets in tag Name
   admin_port    = "8443"
   admin_cidr    = "0.0.0.0/0"
   instance_type = "c6i.xlarge"
   fgt_build     = "build1396"
   license_type  = "byol"
 
-  fgt = {
-    id   = "fgt"
-    cidr = "172.30.0.0/24"
-  }
-
-  vpc-spoke_cidr = "172.30.100.0/23"
+  vpc-spoke_cidr = ["172.30.100.0/23"] // cidrs of VPC spoke attached to TGW (summarized range)
 
   region = {
     id  = "eu-west-1"

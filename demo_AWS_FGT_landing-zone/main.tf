@@ -33,14 +33,15 @@ module "fgt_config" {
   fgt-active-ni_ips    = module.fgt_ni-nsg.fgt-active-ni_ips
   fgt-passive-ni_ips   = module.fgt_ni-nsg.fgt-passive-ni_ips
 
-  config_fgcp = true
+  config_fgcp    = true
+  vpc-spoke_cidr = local.vpc-spoke_cidr
 }
 
 // Create FGT interfaces and SG
 module "fgt_ni-nsg" {
   source = "./modules/fgt-ni-nsg"
 
-  prefix     = "${local.prefix}-onramp"
+  prefix     = "${local.prefix}-fgt-ni"
   admin_cidr = local.admin_cidr
   admin_port = local.admin_port
 
@@ -62,9 +63,9 @@ module "fgt_ni-nsg" {
 module "fgt_vpc" {
   source = "./modules/fgt-vpc"
 
-  prefix = "${local.prefix}-onramp"
+  prefix = "${local.prefix}-fgt-vpc"
   region = local.region
 
-  vpc-sec_cidr = local.fgt["cidr"]
+  vpc-sec_cidr = "172.30.0.0/24"
 }
 
