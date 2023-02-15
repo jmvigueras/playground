@@ -3,7 +3,7 @@
 module "fgt" {
   source = "./modules/fgt-ha-2az"
 
-  prefix        = "${local.prefix}-onramp"
+  prefix        = local.prefix
   region        = local.region
   instance_type = local.instance_type
   keypair       = local.keypair_name == null ? aws_key_pair.keypair.key_name : local.keypair_name
