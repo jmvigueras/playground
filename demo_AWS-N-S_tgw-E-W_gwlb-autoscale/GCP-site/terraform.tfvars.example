@@ -1,0 +1,8 @@
+# GCP project name
+project = "<GCP-project>"
+
+# GCP oauth access token
+token = "<GCP-access-token>"
+
+# GCP resourcers prefix description
+prefix = "terraform"
