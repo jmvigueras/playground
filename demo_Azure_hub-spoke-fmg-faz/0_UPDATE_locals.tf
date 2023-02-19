@@ -2,9 +2,9 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # Context locals
   #-----------------------------------------------------------------------------------------------------
-  resource_group_name      = null            // it will create a new one if null
-  storage-account_endpoint = null            // it will create a new one if null
-  location                 = "francecentral" // default location
+  resource_group_name      = null              // it will create a new one if null
+  storage-account_endpoint = null              // it will create a new one if null
+  location                 = "francecentral"   // default location
   prefix                   = "demo-hub-spoke"  // prefix added in azure assets
 
   tags = {
