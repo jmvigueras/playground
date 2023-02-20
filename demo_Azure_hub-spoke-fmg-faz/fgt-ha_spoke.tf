@@ -7,7 +7,7 @@
 # - vxlan interfaces to connecto to GWLB
 #------------------------------------------------------------------
 module "fgt_spoke_config" {
-  source = "github.com/jmvigueras/modules//azure/fgt-config"
+  source = "git::github.com/jmvigueras/modules//azure/fgt-config"
 
   admin_cidr     = local.admin_cidr
   admin_port     = local.admin_port
@@ -31,12 +31,15 @@ module "fgt_spoke_config" {
   hubs         = local.hubs
   fmg_ip       = module.fgt_hub_vnet.fmg_ni_ips["private"]
   faz_ip       = module.fgt_hub_vnet.faz_ni_ips["private"]
+
+  fmg_interface-select-method = "sdwan"
+  faz_interface-select-method = "sdwan"
 }
 
 // Create FGT cluster spoke
 // (Example with a full scenario deployment with all modules)
 module "fgt_spoke" {
-  source = "github.com/jmvigueras/modules//azure/fgt-ha"
+  source = "git::github.com/jmvigueras/modules//azure/fgt-ha"
 
   prefix                   = "${local.prefix}-spoke"
   location                 = local.location
@@ -59,7 +62,7 @@ module "fgt_spoke" {
 // Module VNET for FGT
 // - This module will generate VNET and network intefaces for FGT cluster
 module "fgt_spoke_vnet" {
-  source = "github.com/jmvigueras/modules//azure/vnet-fgt"
+  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt"
 
   prefix              = "${local.prefix}-spoke"
   location            = local.location

@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------
 // Create FAZ
 module "faz" {
-  source = "github.com/jmvigueras/modules//azure/faz"
+  source = "git::github.com/jmvigueras/modules//azure/faz"
 
   prefix                   = local.prefix
   location                 = local.location
@@ -30,7 +30,7 @@ module "faz" {
 }
 // Create FMG
 module "fmg" {
-  source = "github.com/jmvigueras/modules//azure/fmg"
+  source = "git::github.com/jmvigueras/modules//azure/fmg"
 
   prefix                   = local.prefix
   location                 = local.location

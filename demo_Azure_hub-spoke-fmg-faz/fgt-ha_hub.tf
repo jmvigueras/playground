@@ -5,7 +5,7 @@
 # - Create vNet FGT
 ###################################################################
 module "fgt_hub_config" {
-  source = "github.com/jmvigueras/modules//azure/fgt-config"
+  source = "git::github.com/jmvigueras/modules//azure/fgt-config"
 
   admin_cidr     = local.admin_cidr
   admin_port     = local.admin_port
@@ -28,12 +28,19 @@ module "fgt_hub_config" {
   hub         = local.hub1
   fmg_ip      = module.fgt_hub_vnet.fmg_ni_ips["private"]
   faz_ip      = module.fgt_hub_vnet.faz_ni_ips["private"]
+
+  fmg_fgt-1_source-ip = module.fgt_hub_vnet.fgt-active-ni_ips["private"]
+  fmg_fgt-2_source-ip = module.fgt_hub_vnet.fgt-passive-ni_ips["private"]
+  faz_fgt-1_source-ip = module.fgt_hub_vnet.fgt-active-ni_ips["private"]
+  faz_fgt-2_source-ip = module.fgt_hub_vnet.fgt-passive-ni_ips["private"]
+
+  vpc-spoke_cidr = [module.fgt_hub_vnet.subnet_cidrs["bastion"]]
 }
 
 // Create FGT cluster as HUB-ADVPN
 // (Example with a full scenario deployment with all modules)
 module "fgt_hub" {
-  source = "github.com/jmvigueras/modules//azure/fgt-ha"
+  source = "git::github.com/jmvigueras/modules//azure/fgt-ha"
 
   prefix                   = "${local.prefix}-hub"
   location                 = local.location
@@ -56,7 +63,7 @@ module "fgt_hub" {
 // Module VNET for FGT
 // - This module will generate VNET and network intefaces for FGT cluster
 module "fgt_hub_vnet" {
-  source = "github.com/jmvigueras/modules//azure/vnet-fgt"
+  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt"
 
   prefix              = "${local.prefix}-hub"
   location            = local.location

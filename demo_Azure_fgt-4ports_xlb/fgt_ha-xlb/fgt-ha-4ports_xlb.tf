@@ -6,7 +6,6 @@
 # - Create LB
 #------------------------------------------------------------------
 module "fgt_config" {
-  //source = "../../../pub-jmv-modules/azure/fgt-config_4ports"
   source = "git::github.com/jmvigueras/modules//azure/fgt-config_4ports"
 
   admin_cidr     = local.admin_cidr

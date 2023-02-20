@@ -2,10 +2,10 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # Context locals
   #-----------------------------------------------------------------------------------------------------
-  resource_group_name      = null              // it will create a new one if null
-  storage-account_endpoint = null              // it will create a new one if null
-  location                 = "francecentral"   // default location
-  prefix                   = "demo-hub-spoke"  // prefix added in azure assets
+  resource_group_name      = null             // it will create a new one if null
+  storage-account_endpoint = null             // it will create a new one if null
+  location                 = "francecentral"  // default location
+  prefix                   = "demo-hub-spoke" // prefix added in azure assets
 
   tags = {
     Deploy  = "Forti demo hub spoke"
@@ -17,7 +17,7 @@ locals {
   admin_password = "Terraform123#"
 
   fgt_size         = "Standard_F4"
-  fmg-faz_size     = "Standard_D3_v2"
+  fmg-faz_size     = "Standard_F4"
   fgt_license_type = "payg"
 
   fmg-faz_license_type = "byol"
