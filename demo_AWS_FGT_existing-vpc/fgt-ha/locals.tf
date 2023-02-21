@@ -26,17 +26,17 @@ locals {
   keypair_name   = null
   rsa-public-key = null
 
-  fgt_vpc_id = "vpc-00171dfbae8847f9d"
-  
+  fgt_vpc_id = "vpc-06d70705833cdc91f"
+
   fgt_subnet_az1_cidrs = {
     mgmt    = "172.30.0.0/27"
     private = "172.30.0.64/27"
     public  = "172.30.0.32/27"
   }
   fgt_subnet_az1_ids = {
-    mgmt    = "subnet-0255c4ad2b097e351"
-    private = "subnet-0965871850f9dac9b"
-    public  = "subnet-03d785caff8576d0e"
+    mgmt    = "subnet-0dc4d47b5b1d008e6"
+    private = "subnet-012672131b19b0048"
+    public  = "subnet-00ad8aa9a558db2a8"
   }
   fgt_subnet_az2_cidrs = {
     mgmt    = "172.30.1.0/27"
@@ -44,9 +44,9 @@ locals {
     public  = "172.30.1.32/27"
   }
   fgt_subnet_az2_ids = {
-    mgmt    = "subnet-0c69c7282e72e42a2"
-    private = "subnet-0985c55db276c33a2"
-    public  = "subnet-0030f94511c6a1dd2"
+    mgmt    = "subnet-076d62ade3a20ca2c"
+    private = "subnet-0aed14cf128f1dcdf"
+    public  = "subnet-0bcce7b3d955e068b"
   }
 }
 
