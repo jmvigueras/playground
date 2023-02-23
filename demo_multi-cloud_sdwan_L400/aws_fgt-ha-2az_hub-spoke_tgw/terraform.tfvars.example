@@ -1,0 +1,5 @@
+// AWS Environment
+access_key = "xxx"
+secret_key = "xxx"
+
+prefix = "sdwan-demo"
