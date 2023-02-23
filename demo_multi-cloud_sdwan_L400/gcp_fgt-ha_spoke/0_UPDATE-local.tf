@@ -44,14 +44,14 @@ locals {
 # Import tfsate file from AWS and Azure deployment
 #-----------------------------------------------------------------------------------------------------
 // Import data from deployment az_fgt-ha_hub-spoke_xlb-vwan
-data "terraform_remote_state" "az_fgt-ha_hub-spoke_xlb-vwan" {
+data "terraform_remote_state" "az_fgt-ha_hub_xlb-vwan" {
   backend = "local"
   config = {
     path = "../az_fgt-ha_hub-spoke_xlb-vwan/terraform.tfstate"
   }
 }
 // Import data from deployment aws_fgt-ha-2az_hub-spoke_tgw
-data "terraform_remote_state" "aws_fgt-ha-2az_hub-spoke_tgw" {
+data "terraform_remote_state" "aws_fgt-ha-2az_hub_tgw" {
   backend = "local"
   config = {
     path = "../aws_fgt-ha-2az_hub-spoke_tgw/terraform.tfstate"

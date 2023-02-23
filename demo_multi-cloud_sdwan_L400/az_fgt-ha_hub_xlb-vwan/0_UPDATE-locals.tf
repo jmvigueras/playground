@@ -101,7 +101,7 @@ locals {
 data "terraform_remote_state" "aws_fgt-ha-2az_hub-spoke_tgw" {
   backend = "local"
   config = {
-    path = "../aws_fgt-ha-2az_hub-spoke_tgw/terraform.tfstate"
+    path = "../aws_fgt-ha-2az_hub_tgw/terraform.tfstate"
   }
 }
 
