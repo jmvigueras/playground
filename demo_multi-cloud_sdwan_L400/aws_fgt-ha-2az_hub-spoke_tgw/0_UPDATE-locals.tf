@@ -3,7 +3,7 @@
 # Active Passive High Availability MultiAZ with AWS Transit Gateway with VPC standard attachment
 #-----------------------------------------------------------------------------------------------------
 locals {
-  count = 1
+  count = 2
 
   prefix     = "demo-multi-cloud"
   admin_port = "8443"
