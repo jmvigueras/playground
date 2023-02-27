@@ -118,7 +118,6 @@ module "xlb" {
   fgt_active_self_link  = module.fgt.fgt_active_self_link
   fgt_passive_self_link = module.fgt.fgt_passive_self_link[0]
 
-  config_route    = true
   vpc_spoke_names = module.vpc_spoke.vpc_name
 }
 #------------------------------------------------------------------------------------------------------------

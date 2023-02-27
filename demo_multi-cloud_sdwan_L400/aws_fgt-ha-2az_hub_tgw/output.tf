@@ -15,10 +15,10 @@ output "fgt_hub" {
 }
 
 output "vm_tgw_hub_az1" {
-  value = module.vm_tgw_hub_az1.vm
+  value = module.vm_tgw_hub_az1.*.vm
 }
 output "vm_tgw_hub_az2" {
-  value = module.vm_tgw_hub_az2.vm
+  value = module.vm_tgw_hub_az2.*.vm
 }
 
 output "hubs" {

@@ -28,14 +28,14 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   hubs = [local.hubs_1[0], local.hubs_1[1], local.hubs_2[0]]
 
-  hubs_1 = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.hubs
-  hubs_2 = data.terraform_remote_state.az_fgt-ha_hub-spoke_xlb-vwan.outputs.hubs
+  hubs_1 = data.terraform_remote_state.aws_fgt-ha-2az_hub_tgw.outputs.hubs
+  hubs_2 = data.terraform_remote_state.az_fgt-ha_hub_xlb-vwan.outputs.hubs
 
   #-----------------------------------------------------------------------------------------------------
   # FAZ and FMG IPs
   #-----------------------------------------------------------------------------------------------------
-  faz_ip = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.faz["private_ip"]
-  fmg_ip = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.fmg["private_ip"]
+  faz_ip = data.terraform_remote_state.aws_fgt-ha-2az_hub_tgw.outputs.faz["private_ip"]
+  fmg_ip = data.terraform_remote_state.aws_fgt-ha-2az_hub_tgw.outputs.fmg["private_ip"]
 }
 
 
@@ -47,14 +47,14 @@ locals {
 data "terraform_remote_state" "az_fgt-ha_hub_xlb-vwan" {
   backend = "local"
   config = {
-    path = "../az_fgt-ha_hub-spoke_xlb-vwan/terraform.tfstate"
+    path = "../az_fgt-ha_hub_xlb-vwan/terraform.tfstate"
   }
 }
 // Import data from deployment aws_fgt-ha-2az_hub-spoke_tgw
 data "terraform_remote_state" "aws_fgt-ha-2az_hub_tgw" {
   backend = "local"
   config = {
-    path = "../aws_fgt-ha-2az_hub-spoke_tgw/terraform.tfstate"
+    path = "../aws_fgt-ha-2az_hub_tgw/terraform.tfstate"
   }
 }
 
