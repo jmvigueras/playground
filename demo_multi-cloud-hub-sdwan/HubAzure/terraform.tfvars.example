@@ -1,7 +1,0 @@
-# Change to your own azure environment for deployment with Terraform
-subscription_id = "xxx-xxx-xxx"
-client_id       = "xxx-xxx-xxx"
-client_secret   = "xxxxxxxxx"
-tenant_id       = "xxx-xxx-xxx"
-
-vnet-fgt_cidr   = "172.30.0.0/20"

@@ -179,7 +179,7 @@ module "xlb" {
   }
 }
 
-// Create load balancers
+// Create Azure Route Servers
 module "rs" {
   depends_on = [module.vnet-spoke-fgt, module.fgt_hub_vnet]
   source     = "git::github.com/jmvigueras/modules//azure/routeserver"
