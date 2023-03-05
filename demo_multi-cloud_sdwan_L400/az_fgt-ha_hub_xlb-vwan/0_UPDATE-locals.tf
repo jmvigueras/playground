@@ -2,10 +2,10 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # General variables
   #-----------------------------------------------------------------------------------------------------
-  resource_group_name      = null                 // a new resource group will be created if null
+  resource_group_name      = null // a new resource group will be created if null
   location                 = "francecentral"
-  storage-account_endpoint = null                 // a new resource group will be created if null
-  prefix = "demo-multi-cloud"   // prefix added to all resources created
+  storage-account_endpoint = null               // a new resource group will be created if null
+  prefix                   = "demo-multi-cloud" // prefix added to all resources created
 
   admin_port     = "8443"
   admin_cidr     = "${chomp(data.http.my-public-ip.body)}/32"
@@ -26,7 +26,7 @@ locals {
   ilb_ip             = cidrhost(module.fgt_hub_vnet.subnet_cidrs["private"], 9)
   backend-probe_port = "8008"
 
-  config_gwlb        = false
+  config_gwlb = false
   /*
   gwlb_ip =  cidrhost(module.fgt_spoke_vnet.subnet_cidrs["private"], 8)
   gwlb_vxlan = {
@@ -39,27 +39,33 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # FGT HUB locals
   #-----------------------------------------------------------------------------------------------------
-  hub = {
+  hub = [
+  {
     id                = "HUB-Az"
-    bgp-asn_hub       = "65000"
-    bgp-asn_spoke     = "65000"
+    bgp_asn_hub       = "65000"
+    bgp_asn_spoke     = "65000"
     vpn_cidr          = "10.10.20.0/24"
     vpn_psk           = "secret-key-123"
     cidr              = "172.30.0.0/23"
-    ike-version       = "2"
+    ike_version       = "2"
     network_id        = "1"
-    dpd-retryinterval = "5"
+    dpd_retryinterval = "5"
     mode-cfg          = true
+    vpn_port          = "public"
   }
-  hub_peer_vxlan = {
-    bgp-asn   = "65000"
-    public-ip = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.fgt_hub["fgt-1_public"]
-    remote-ip = "10.10.30.1"
-    local-ip  = "10.10.30.2"
-    vni       = "1100"
+  ]
+  hub_peer_vxlan = [
+  {
+    bgp_asn    = "65000"
+    public_ip  = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.fgt_hub["fgt-1_public"]
+    remote_ip  = "10.10.30.1"
+    local_ip   = "10.10.30.2"
+    vni        = "1100"
+    vxlan_port = "public"
   }
+  ]
 
-  fgt_vnet-spoke_cidrs  = ["172.30.100.0/23"]
+  fgt_vnet-spoke_cidrs = ["172.30.100.0/23"]
 
   #-----------------------------------------------------------------------------------------------------
   # FAZ and FMG IPs
@@ -77,17 +83,18 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   hubs = [
     {
-      id                = local.hub["id"]
-      bgp-asn           = local.hub["bgp-asn_hub"]
-      public-ip         = module.fgt_hub_vnet.fgt-active-public-ip
-      hub-ip            = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 0, 0), 1)
-      site-ip           = "" // set to "" if VPN mode-cfg is enable
-      hck-srv-ip        = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 0, 0), 1)
-      vpn_psk           = local.hub["vpn_psk"]
-      cidr              = local.hub["cidr"]
-      ike-version       = local.hub["ike-version"]
-      network_id        = local.hub["network_id"]
-      dpd-retryinterval = local.hub["dpd-retryinterval"]
+      id                = local.hub[0]["id"]
+      bgp_asn           = local.hub[0]["bgp_asn_hub"]
+      public_ip         = module.fgt_hub_vnet.fgt-active-public-ip
+      hub_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 0, 0), 1)
+      site_ip           = "" // set to "" if VPN mode-cfg is enable
+      hck_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 0, 0), 1)
+      vpn_psk           = local.hub[0]["vpn_psk"]
+      cidr              = local.hub[0]["cidr"]
+      ike_version       = local.hub[0]["ike_version"]
+      network_id        = local.hub[0]["network_id"]
+      dpd_retryinterval = local.hub[0]["dpd_retryinterval"]
+      sdwan_port        = "public"
     }
   ]
 }

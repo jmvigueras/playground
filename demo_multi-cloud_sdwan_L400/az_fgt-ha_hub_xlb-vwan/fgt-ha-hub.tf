@@ -24,22 +24,22 @@ module "fgt_hub_config" {
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
 
-  config_fgcp       = true
-  config_hub        = true
-  config_vhub       = true
-  config_ars        = true
-  config_vxlan      = true
-  config_fmg        = true
-  config_faz        = true
+  config_fgcp  = true
+  config_vhub  = true
+  config_ars   = true
+  config_fmg   = true
+  config_faz   = true
+  config_hub   = true
+  config_vxlan = true
 
-  hub               = local.hub
-  hub-peer_vxlan    = local.hub_peer_vxlan
+  hub            = local.hub
+  hub_peer_vxlan = local.hub_peer_vxlan
 
-  vhub_peer         = module.vwan.virtual_router_ips
-  rs_peer           = module.rs.rs_peer
+  vhub_peer = module.vwan.virtual_router_ips
+  rs_peer   = module.rs.rs_peer
 
-  fmg_ip          = local.fmg_ip
-  faz_ip          = local.faz_ip
+  fmg_ip = local.fmg_ip
+  faz_ip = local.faz_ip
 
   vpc-spoke_cidr = [module.fgt_hub_vnet.subnet_cidrs["bastion"], local.fgt_vnet-spoke_cidrs[0], local.vhub_vnet-spoke_cidrs[0]]
 }
@@ -77,7 +77,7 @@ module "fgt_hub_vnet" {
   resource_group_name = local.resource_group_name == null ? azurerm_resource_group.rg[0].name : local.resource_group_name
   tags                = local.tags
 
-  vnet-fgt_cidr = local.hub["cidr"]
+  vnet-fgt_cidr = local.hub[0]["cidr"]
   admin_port    = local.admin_port
   admin_cidr    = local.admin_cidr
 }
@@ -108,7 +108,7 @@ module "vwan" {
   vnet-fgt_id            = module.fgt_hub_vnet.vnet["id"]
   fgt-cluster_active-ip  = module.fgt_hub_vnet.fgt-active-ni_ips["private"]
   fgt-cluster_passive-ip = module.fgt_hub_vnet.fgt-passive-ni_ips["private"]
-  fgt-cluster_bgp-asn    = local.hub["bgp-asn_hub"]
+  fgt-cluster_bgp-asn    = local.hub[0]["bgp_asn_hub"]
 }
 
 // Module VNET spoke vHUB
@@ -190,7 +190,7 @@ module "rs" {
   tags                = local.tags
 
   subnet_ids   = module.vnet-spoke-fgt.subnet_ids["routeserver"]
-  fgt_bgp-asn  = local.hub["bgp-asn_hub"]
+  fgt_bgp-asn  = local.hub[0]["bgp_asn_hub"]
   fgt1_peer-ip = module.fgt_hub_vnet.fgt-active-ni_ips["private"]
   fgt2_peer-ip = module.fgt_hub_vnet.fgt-passive-ni_ips["private"]
 }

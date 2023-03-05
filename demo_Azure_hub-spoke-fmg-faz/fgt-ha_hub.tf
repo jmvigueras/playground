@@ -22,12 +22,13 @@ module "fgt_hub_config" {
   tenant_id       = var.tenant_id
 
   config_fgsp = true
-  config_hub  = true
   config_fmg  = true
   config_faz  = true
-  hub         = local.hub1
-  fmg_ip      = module.fgt_hub_vnet.fmg_ni_ips["private"]
-  faz_ip      = module.fgt_hub_vnet.faz_ni_ips["private"]
+  config_hub  = true
+
+  hub    = local.hub1
+  fmg_ip = module.fgt_hub_vnet.fmg_ni_ips["private"]
+  faz_ip = module.fgt_hub_vnet.faz_ni_ips["private"]
 
   fmg_fgt-1_source-ip = module.fgt_hub_vnet.fgt-active-ni_ips["private"]
   fmg_fgt-2_source-ip = module.fgt_hub_vnet.fgt-passive-ni_ips["private"]
@@ -70,7 +71,7 @@ module "fgt_hub_vnet" {
   resource_group_name = local.resource_group_name == null ? azurerm_resource_group.rg[0].name : local.resource_group_name
   tags                = local.tags
 
-  vnet-fgt_cidr = local.hub1["cidr"]
+  vnet-fgt_cidr = local.hub1[0]["cidr"]
   admin_port    = local.admin_port
   admin_cidr    = local.admin_cidr
 
