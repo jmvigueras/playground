@@ -1,7 +1,7 @@
 #------------------------------------------------------------------------------------------------------------
 # Create FGT cluster config
 #------------------------------------------------------------------------------------------------------------
-module "fgt_ips-nsg" {
+module "fgt_ips-fwr" {
   source = "git::github.com/jmvigueras/modules//gcp/fgt-ha_ips-fwr"
 
   prefix = local.prefix
@@ -22,12 +22,15 @@ module "fgt_config" {
   rsa-public-key = trimspace(tls_private_key.ssh-rsa.public_key_openssh)
 
   subnet_cidrs       = local.subnet_cidrs
-  fgt-active-ni_ips  = module.fgt_ips-nsg.fgt-active-ni_ips
-  fgt-passive-ni_ips = module.fgt_ips-nsg.fgt-passive-ni_ips
+  fgt-active-ni_ips  = module.fgt_ips-fwr.fgt-active-ni_ips
+  fgt-passive-ni_ips = module.fgt_ips-fwr.fgt-passive-ni_ips
 
-  config_fgcp         = true
-  private_route_names = google_compute_route.private_route_to_fgt.*.name
-  vpc-spoke_cidr      = local.vpc-spoke_cidrs
+  config_fgcp  = local.cluster_type == "fgcp" ? true : false
+  config_fgsp  = local.cluster_type == "fgsp" ? true : false
+  
+  public_ip_names         = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.name : null
+  private_route_names     = concat(google_compute_route.private_route_to_fgt_default.*.name,google_compute_route.private_route_to_fgt_rfc1918.*.name)
+  vpc-spoke_cidr          = concat(local.vpc-spoke_cidrs_1,local.vpc-spoke_cidrs_2)
 }
 #------------------------------------------------------------------------------------------------------------
 # Create FGT cluster instances
@@ -48,9 +51,10 @@ module "fgt" {
   license_file_1 = local.license_file_1
   license_file_2 = local.license_file_2
 
-  subnet_names       = local.subnet_names
-  fgt-active-ni_ips  = module.fgt_ips-nsg.fgt-active-ni_ips
-  fgt-passive-ni_ips = module.fgt_ips-nsg.fgt-passive-ni_ips
+  subnet_names          = local.subnet_names
+  fgt-active-ni_ips     = module.fgt_ips-fwr.fgt-active-ni_ips
+  fgt-passive-ni_ips    = module.fgt_ips-fwr.fgt-passive-ni_ips
+  fgt-cluster-public-ip = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.address[0] : null
 
   fgt_config_1 = module.fgt_config.fgt_config_1
   fgt_config_2 = module.fgt_config.fgt_config_2

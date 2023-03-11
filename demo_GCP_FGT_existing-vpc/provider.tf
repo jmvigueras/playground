@@ -20,6 +20,21 @@ provider "google-beta" {
   access_token = var.token
 }
 
+/*
+provider "google_project_es" {
+  project      = google_project.project_es.name
+  region       = var.region_es
+  zone         = var.zone1_es
+  access_token = var.token_es
+}
+
+resource "google_project" "project_es" {
+  name       = "fnac-project-es"
+  project_id = "fnac-project-es"
+  folder_id  = "local.folder_es"
+}
+*/
+
 # GCP resourcers prefix description
 variable "project" {
   type    = string
