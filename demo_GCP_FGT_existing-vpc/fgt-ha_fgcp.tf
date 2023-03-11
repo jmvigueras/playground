@@ -25,12 +25,12 @@ module "fgt_config" {
   fgt-active-ni_ips  = module.fgt_ips-fwr.fgt-active-ni_ips
   fgt-passive-ni_ips = module.fgt_ips-fwr.fgt-passive-ni_ips
 
-  config_fgcp  = local.cluster_type == "fgcp" ? true : false
-  config_fgsp  = local.cluster_type == "fgsp" ? true : false
-  
-  public_ip_names         = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.name : null
-  private_route_names     = concat(google_compute_route.private_route_to_fgt_default.*.name,google_compute_route.private_route_to_fgt_rfc1918.*.name)
-  vpc-spoke_cidr          = concat(local.vpc-spoke_cidrs_1,local.vpc-spoke_cidrs_2)
+  config_fgcp = local.cluster_type == "fgcp" ? true : false
+  config_fgsp = local.cluster_type == "fgsp" ? true : false
+
+  public_ip_names     = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.name : null
+  private_route_names = concat(google_compute_route.private_route_to_fgt_default.*.name, google_compute_route.private_route_to_fgt_rfc1918.*.name)
+  vpc-spoke_cidr      = concat(local.vpc-spoke_cidrs_1, local.vpc-spoke_cidrs_2)
 }
 #------------------------------------------------------------------------------------------------------------
 # Create FGT cluster instances
@@ -46,7 +46,7 @@ module "fgt" {
   machine        = local.machine
   rsa-public-key = trimspace(tls_private_key.ssh-rsa.public_key_openssh)
   gcp-user_name  = split("@", data.google_client_openid_userinfo.me.email)[0]
-  
+
   license_type   = local.license_type
   license_file_1 = local.license_file_1
   license_file_2 = local.license_file_2

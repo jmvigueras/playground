@@ -15,12 +15,12 @@ locals {
   # (Update any VPC name with existing VPC)
   vpc_names = {
     mgmt    = google_compute_network.fgt_vpc_mgmt.name
-    public  = google_compute_network.fgt_vpc_public.name   
+    public  = google_compute_network.fgt_vpc_public.name
     private = google_compute_network.fgt_vpc_private.name
   }
   vpc_self_link = {
     mgmt    = google_compute_network.fgt_vpc_mgmt.self_link
-    public  = google_compute_network.fgt_vpc_public.self_link   
+    public  = google_compute_network.fgt_vpc_public.self_link
     private = google_compute_network.fgt_vpc_private.self_link
   }
   # (CIRDs ranges of existing VPC or customize to deploy)
@@ -32,14 +32,14 @@ locals {
   # (Update any subnet name with existing subnet in existing VPC)
   subnet_names = {
     mgmt    = google_compute_subnetwork.fgt_subnet_mgmt.name
-    public  = google_compute_subnetwork.fgt_subnet_public.name 
+    public  = google_compute_subnetwork.fgt_subnet_public.name
     private = google_compute_subnetwork.fgt_subnet_private.name
   }
   # (Used to create different routes with different priority)
-  private_route_cidrs_default   = ["0.0.0.0/0"]
-  private_route_cidrs_rfc1918   = ["172.16.0.0/12", "10.0.0.0/8", "192.168.0.0/16"]
-  priority_default              = 500
-  priority_rfc1918              = 100
+  private_route_cidrs_default = ["0.0.0.0/0"]
+  private_route_cidrs_rfc1918 = ["172.16.0.0/12", "10.0.0.0/8", "192.168.0.0/16"]
+  priority_default            = 500
+  priority_rfc1918            = 100
   #-----------------------------------------------------------------------------------------------------
   # FGT
   #-----------------------------------------------------------------------------------------------------

@@ -20,10 +20,10 @@ resource "google_compute_network" "fgt_vpc_private" {
 # Create public IP for FGT cluster FGCP
 #------------------------------------------------------------------------------------------------------------
 resource "google_compute_address" "cluster-public-ip" {
-  count = local.cluster_type == "fgcp" ? 1 : 0   
-  name = "${var.prefix}-cluster-public-ip"
+  count        = local.cluster_type == "fgcp" ? 1 : 0
+  name         = "${var.prefix}-cluster-public-ip"
   address_type = "EXTERNAL"
-  region = var.region
+  region       = var.region
 }
 #------------------------------------------------------------------------------------------------------------
 # Create FGT Subnets (comment if any subnet in VPC already exists)
@@ -52,21 +52,21 @@ resource "google_compute_subnetwork" "fgt_subnet_private" {
 #------------------------------------------------------------------------------------------------------------
 resource "google_compute_route" "private_route_to_fgt_default" {
   // depends_on   = [google_compute_subnetwork.fgt_subnet_private]
-  count        = length(local.private_route_cidrs_default)
-  name         = "${local.prefix}-private-route-default-to-fgt-${count.index + 1}"
-  dest_range   = local.private_route_cidrs_default[count.index]
-  network      = local.vpc_names["private"]
-  next_hop_ip  = module.fgt_ips-fwr.fgt-active-ni_ips["private"]
-  priority     = local.priority_default
+  count       = length(local.private_route_cidrs_default)
+  name        = "${local.prefix}-private-route-default-to-fgt-${count.index + 1}"
+  dest_range  = local.private_route_cidrs_default[count.index]
+  network     = local.vpc_names["private"]
+  next_hop_ip = module.fgt_ips-fwr.fgt-active-ni_ips["private"]
+  priority    = local.priority_default
 }
 resource "google_compute_route" "private_route_to_fgt_rfc1918" {
   // depends_on   = [google_compute_subnetwork.fgt_subnet_private]
-  count        = length(local.private_route_cidrs_rfc1918)
-  name         = "${local.prefix}-private-route-rfc1918-to-fgt-${count.index + 1}"
-  dest_range   = local.private_route_cidrs_rfc1918[count.index]
-  network      = local.vpc_names["private"]
-  next_hop_ip  = module.fgt_ips-fwr.fgt-active-ni_ips["private"]
-  priority     = local.priority_rfc1918
+  count       = length(local.private_route_cidrs_rfc1918)
+  name        = "${local.prefix}-private-route-rfc1918-to-fgt-${count.index + 1}"
+  dest_range  = local.private_route_cidrs_rfc1918[count.index]
+  network     = local.vpc_names["private"]
+  next_hop_ip = module.fgt_ips-fwr.fgt-active-ni_ips["private"]
+  priority    = local.priority_rfc1918
 }
 #------------------------------------------------------------------------------------------------------------
 # Create VPC spokes peered to VPC FGT
