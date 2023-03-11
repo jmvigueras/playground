@@ -9,19 +9,3 @@ output "fgt" {
     vpn_psk      = module.fgt_config.vpn_psk
   }
 }
-
-output "vm_spoke_es" {
-  value = {
-    admin_user = split("@", data.google_client_openid_userinfo.me.email)[0]
-    pip        = module.vm_spoke_es.vm["pip"]
-    ip         = module.vm_spoke_es.vm["ip"]
-  }
-}
-
-output "vm_spoke_pt" {
-  value = {
-    admin_user = split("@", data.google_client_openid_userinfo.me.email)[0]
-    pip        = module.vm_spoke_pt.vm["pip"]
-    ip         = module.vm_spoke_pt.vm["ip"]
-  }
-}

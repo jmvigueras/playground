@@ -28,7 +28,7 @@ module "fgt_config" {
   config_fgcp = local.cluster_type == "fgcp" ? true : false
   config_fgsp = local.cluster_type == "fgsp" ? true : false
 
-  public_ip_names     = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.name : null
+  public_ip_names     = ["${local.prefix}-active-public-ip"]
   private_route_names = concat(google_compute_route.private_route_to_fgt_default.*.name, google_compute_route.private_route_to_fgt_rfc1918.*.name)
   vpc-spoke_cidr      = concat(local.vpc-spoke_cidrs_1, local.vpc-spoke_cidrs_2)
 }
@@ -54,8 +54,7 @@ module "fgt" {
   subnet_names          = local.subnet_names
   fgt-active-ni_ips     = module.fgt_ips-fwr.fgt-active-ni_ips
   fgt-passive-ni_ips    = module.fgt_ips-fwr.fgt-passive-ni_ips
-  fgt-cluster-public-ip = local.cluster_type == "fgcp" ? google_compute_address.cluster-public-ip.*.address[0] : null
-
+ 
   fgt_config_1 = module.fgt_config.fgt_config_1
   fgt_config_2 = module.fgt_config.fgt_config_2
 

@@ -17,15 +17,6 @@ resource "google_compute_network" "fgt_vpc_private" {
   auto_create_subnetworks = false
 }
 #------------------------------------------------------------------------------------------------------------
-# Create public IP for FGT cluster FGCP
-#------------------------------------------------------------------------------------------------------------
-resource "google_compute_address" "cluster-public-ip" {
-  count        = local.cluster_type == "fgcp" ? 1 : 0
-  name         = "${var.prefix}-cluster-public-ip"
-  address_type = "EXTERNAL"
-  region       = var.region
-}
-#------------------------------------------------------------------------------------------------------------
 # Create FGT Subnets (comment if any subnet in VPC already exists)
 #------------------------------------------------------------------------------------------------------------
 # Create subnet in VPC public
@@ -51,7 +42,7 @@ resource "google_compute_subnetwork" "fgt_subnet_private" {
 # Create private routes in VPC private
 #------------------------------------------------------------------------------------------------------------
 resource "google_compute_route" "private_route_to_fgt_default" {
-  // depends_on   = [google_compute_subnetwork.fgt_subnet_private]
+  depends_on   = [google_compute_subnetwork.fgt_subnet_private]
   count       = length(local.private_route_cidrs_default)
   name        = "${local.prefix}-private-route-default-to-fgt-${count.index + 1}"
   dest_range  = local.private_route_cidrs_default[count.index]
@@ -60,7 +51,7 @@ resource "google_compute_route" "private_route_to_fgt_default" {
   priority    = local.priority_default
 }
 resource "google_compute_route" "private_route_to_fgt_rfc1918" {
-  // depends_on   = [google_compute_subnetwork.fgt_subnet_private]
+  depends_on   = [google_compute_subnetwork.fgt_subnet_private]
   count       = length(local.private_route_cidrs_rfc1918)
   name        = "${local.prefix}-private-route-rfc1918-to-fgt-${count.index + 1}"
   dest_range  = local.private_route_cidrs_rfc1918[count.index]
@@ -77,7 +68,7 @@ module "vpc_spoke_1" {
   prefix = "${local.prefix}-${local.prefix_1}"
   region = local.region
 
-  spoke-subnet_cidrs = local.vpc-spoke_cidrs_es
+  spoke-subnet_cidrs = local.vpc-spoke_cidrs_1
   fgt_vpc_self_link  = local.vpc_self_link["private"]
 }
 module "vpc_spoke_2" {
@@ -86,7 +77,7 @@ module "vpc_spoke_2" {
   prefix = "${local.prefix}-${local.prefix_2}"
   region = local.region
 
-  spoke-subnet_cidrs = local.vpc-spoke_cidrs_pt
+  spoke-subnet_cidrs = local.vpc-spoke_cidrs_2
   fgt_vpc_self_link  = local.vpc_self_link["private"]
 }
 #------------------------------------------------------------------------------------------------------------
