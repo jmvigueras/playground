@@ -28,9 +28,9 @@ module "fgt_config" {
   config_fgcp = local.cluster_type == "fgcp" ? true : false
   config_fgsp = local.cluster_type == "fgsp" ? true : false
 
-  public_ip_names     = ["${local.prefix}-active-public-ip"]
-  private_route_names = concat(google_compute_route.private_route_to_fgt_default.*.name, google_compute_route.private_route_to_fgt_rfc1918.*.name)
-  vpc-spoke_cidr      = concat(local.vpc-spoke_cidrs_1, local.vpc-spoke_cidrs_2)
+  cluster_pips     = ["${local.prefix}-active-public-ip"]
+  route_tables     = concat(google_compute_route.private_route_to_fgt_default.*.name, google_compute_route.private_route_to_fgt_rfc1918.*.name)
+  vpc-spoke_cidr   = concat(local.vpc-spoke_cidrs_1, local.vpc-spoke_cidrs_2)
 }
 #------------------------------------------------------------------------------------------------------------
 # Create FGT cluster instances
