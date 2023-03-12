@@ -36,7 +36,6 @@ locals {
     private = "demo-fgt-ha-4ports-subnet-private"
     public  = "demo-fgt-ha-4ports-subnet-public"
   }
-
   fgt_subnet_cidrs = {
     ha      = "172.30.0.0/26"
     mgmt    = "172.30.0.64/26"
@@ -51,9 +50,6 @@ locals {
   ilb_ip             = cidrhost(local.fgt_subnet_cidrs["private"], 7) // IP for internal LoadBalancer in private subnet
   backend-probe_port = "8008"
 }
-
-
-
 
 
 

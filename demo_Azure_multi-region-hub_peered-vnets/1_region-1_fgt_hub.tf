@@ -92,25 +92,11 @@ module "r1_xlb" {
   ilb_ip             = local.r1_ilb_ip
   backend-probe_port = local.backend-probe_port
 
-  subnet_private = {
-    cidr    = module.r1_fgt_hub_vnet.subnet_cidrs["private"]
-    id      = module.r1_fgt_hub_vnet.subnet_ids["private"]
-    vnet_id = module.r1_fgt_hub_vnet.vnet["id"]
-  }
-
-  fgt-ni_ids = {
-    fgt1_public  = module.r1_fgt_hub_vnet.fgt-active-ni_ids["public"]
-    fgt1_private = module.r1_fgt_hub_vnet.fgt-active-ni_ids["private"]
-    fgt2_public  = module.r1_fgt_hub_vnet.fgt-passive-ni_ids["public"]
-    fgt2_private = module.r1_fgt_hub_vnet.fgt-passive-ni_ids["private"]
-  }
-
-  fgt-ni_ips = {
-    fgt1_public  = module.r1_fgt_hub_vnet.fgt-active-ni_ips["public"]
-    fgt1_private = module.r1_fgt_hub_vnet.fgt-active-ni_ips["private"]
-    fgt2_public  = module.r1_fgt_hub_vnet.fgt-passive-ni_ips["public"]
-    fgt2_private = module.r1_fgt_hub_vnet.fgt-passive-ni_ips["private"]
-  }
+  vnet-fgt           = module.r1_fgt_hub_vnet.vnet
+  subnet_ids         = module.r1_fgt_hub_vnet.subnet_ids
+  subnet_cidrs       = module.r1_fgt_hub_vnet.subnet_cidrs
+  fgt-active-ni_ips  = module.r1_fgt_hub_vnet.fgt-active-ni_ips
+  fgt-passive-ni_ips = module.r1_fgt_hub_vnet.fgt-passive-ni_ips
 }
 // Create vNet spoke
 module "r1_hub_vnet_spoke" {
