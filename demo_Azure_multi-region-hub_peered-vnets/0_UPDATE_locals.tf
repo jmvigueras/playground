@@ -146,7 +146,7 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   spoke_number       = 2
   spoke_cluster_type = "fgcp"
-  
+
   spoke = {
     id      = "spoke"
     cidr    = "192.168.0.0/23"
@@ -193,7 +193,7 @@ locals {
     {
       id                = hub["id"]
       bgp_asn           = hub["bgp_asn_hub"]
-      external_ip       = hub["vpn_port"] == "public" ? module.r2_xlb.elb_public-ip: local.r2_ilb_ip
+      external_ip       = hub["vpn_port"] == "public" ? module.r2_xlb.elb_public-ip : local.r2_ilb_ip
       hub_ip            = cidrhost(cidrsubnet(hub["vpn_cidr"], local.r2_hub_cluster_type == "fgsp" ? 1 : 0, 0), 1)
       site_ip           = hub["mode_cfg"] ? "" : cidrhost(cidrsubnet(hub["vpn_cidr"], local.r2_hub_cluster_type == "fgsp" ? 1 : 0, 0), 2)
       hck_ip            = cidrhost(cidrsubnet(hub["vpn_cidr"], 1, 0), 1)

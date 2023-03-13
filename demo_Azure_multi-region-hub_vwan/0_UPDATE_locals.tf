@@ -43,7 +43,7 @@ locals {
       bgp_asn_spoke     = "65000"
       vpn_cidr          = "10.0.1.0/24"
       vpn_psk           = "secret-key-123"
-      cidr              = "172.16.0.0/12"
+      cidr              = "172.20.100.0/23"
       ike_version       = "2"
       network_id        = "1"
       dpd_retryinterval = "5"
@@ -56,7 +56,7 @@ locals {
       bgp_asn_spoke     = "65000"
       vpn_cidr          = "10.0.10.0/24"
       vpn_psk           = "secret-key-123"
-      cidr              = "192.168.0.0/16"
+      cidr              = "172.30.100.0/23"
       ike_version       = "2"
       network_id        = "1"
       dpd_retryinterval = "5"
@@ -71,7 +71,7 @@ locals {
       bgp_asn_spoke     = "65000"
       vpn_cidr          = "10.0.2.0/24"
       vpn_psk           = "secret-key-123"
-      cidr              = "172.16.0.0/12"
+      cidr              = "172.20.100.0/23"
       ike_version       = "2"
       network_id        = "1"
       dpd_retryinterval = "5"
@@ -84,7 +84,7 @@ locals {
       bgp_asn_spoke     = "65000"
       vpn_cidr          = "10.0.20.0/24"
       vpn_psk           = "secret-key-123"
-      cidr              = "192.168.0.0/16"
+      cidr              = "172.30.100.0/23"
       ike_version       = "2"
       network_id        = "1"
       dpd_retryinterval = "5"
@@ -95,7 +95,7 @@ locals {
   r1_hub_peer_vxlan = [
     {
       bgp_asn     = local.r2_hub[0]["bgp_asn_hub"]
-      external_ip = module.r2_fgt_hub_vnet.fgt-active-public-ip
+      external_ip = module.r2_xlb.elb_public-ip
       remote_ip   = "10.0.3.2"
       local_ip    = "10.0.3.1"
       vni         = "1100"
@@ -113,7 +113,7 @@ locals {
   r2_hub_peer_vxlan = [
     {
       bgp_asn     = local.r1_hub[0]["bgp_asn_hub"]
-      external_ip = module.r1_fgt_hub_vnet.fgt-active-public-ip
+      external_ip = module.r1_xlb.elb_public-ip
       remote_ip   = "10.0.3.1"
       local_ip    = "10.0.3.2"
       vni         = "1100"
@@ -146,7 +146,7 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # FGT Spoke locals (region 1)
   #-----------------------------------------------------------------------------------------------------
-  spoke_number       = 2
+  spoke_number       = 1
   spoke_cluster_type = "fgcp"
   
   spoke = {

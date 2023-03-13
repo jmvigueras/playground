@@ -21,8 +21,10 @@ module "faz" {
   admin_username = local.admin_username
   admin_password = local.admin_password
 
-  faz_ni_ids = module.fgt_hub_vnet.faz_ni_ids
-  faz_ni_ips = module.fgt_hub_vnet.faz_ni_ips
+  subnet_ids = {
+    public  = module.fgt_hub_vnet.subnet_ids["public"]
+    private = module.fgt_hub_vnet.subnet_ids["bastion"]
+  }
   subnet_cidrs = {
     public  = module.fgt_hub_vnet.subnet_cidrs["public"]
     private = module.fgt_hub_vnet.subnet_cidrs["bastion"]
@@ -47,8 +49,10 @@ module "fmg" {
   admin_username = local.admin_username
   admin_password = local.admin_password
 
-  fmg_ni_ids = module.fgt_hub_vnet.fmg_ni_ids
-  fmg_ni_ips = module.fgt_hub_vnet.fmg_ni_ips
+  subnet_ids = {
+    public  = module.fgt_hub_vnet.subnet_ids["public"]
+    private = module.fgt_hub_vnet.subnet_ids["bastion"]
+  }
   subnet_cidrs = {
     public  = module.fgt_hub_vnet.subnet_cidrs["public"]
     private = module.fgt_hub_vnet.subnet_cidrs["bastion"]

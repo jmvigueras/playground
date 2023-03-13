@@ -21,6 +21,7 @@ module "r2_fgt_hub_config" {
   client_id       = var.client_id
   client_secret   = var.client_secret
   tenant_id       = var.tenant_id
+  resource_group_name      = local.r2_resource_group_name == null ? azurerm_resource_group.r2_rg[0].name : local.r2_resource_group_name
   */
 
   config_fgcp  = local.r2_hub_cluster_type == "fgcp" ? true : false
@@ -31,7 +32,7 @@ module "r2_fgt_hub_config" {
 
   hub            = local.r2_hub
   hub_peer_vxlan = local.r2_hub_peer_vxlan
-  vhub_peer = azurerm_virtual_hub.r2_vhub.virtual_router_ips
+  vhub_peer      = azurerm_virtual_hub.r2_vhub.virtual_router_ips
 
   vpc-spoke_cidr = [local.r2_vhub_cidr, module.r2_fgt_hub_vnet.subnet_cidrs["bastion"]]
 }
@@ -91,25 +92,11 @@ module "r2_xlb" {
   ilb_ip             = local.r2_ilb_ip
   backend-probe_port = local.backend-probe_port
 
-  subnet_private = {
-    cidr    = module.r2_fgt_hub_vnet.subnet_cidrs["private"]
-    id      = module.r2_fgt_hub_vnet.subnet_ids["private"]
-    vnet_id = module.r2_fgt_hub_vnet.vnet["id"]
-  }
-
-  fgt-ni_ids = {
-    fgt1_public  = module.r2_fgt_hub_vnet.fgt-active-ni_ids["public"]
-    fgt1_private = module.r2_fgt_hub_vnet.fgt-active-ni_ids["private"]
-    fgt2_public  = module.r2_fgt_hub_vnet.fgt-passive-ni_ids["public"]
-    fgt2_private = module.r2_fgt_hub_vnet.fgt-passive-ni_ids["private"]
-  }
-
-  fgt-ni_ips = {
-    fgt1_public  = module.r2_fgt_hub_vnet.fgt-active-ni_ips["public"]
-    fgt1_private = module.r2_fgt_hub_vnet.fgt-active-ni_ips["private"]
-    fgt2_public  = module.r2_fgt_hub_vnet.fgt-passive-ni_ips["public"]
-    fgt2_private = module.r2_fgt_hub_vnet.fgt-passive-ni_ips["private"]
-  }
+  vnet-fgt           = module.r2_fgt_hub_vnet.vnet
+  subnet_ids         = module.r2_fgt_hub_vnet.subnet_ids
+  subnet_cidrs       = module.r2_fgt_hub_vnet.subnet_cidrs
+  fgt-active-ni_ips  = module.r2_fgt_hub_vnet.fgt-active-ni_ips
+  fgt-passive-ni_ips = module.r2_fgt_hub_vnet.fgt-passive-ni_ips
 }
 
 #------------------------------------------------------------------

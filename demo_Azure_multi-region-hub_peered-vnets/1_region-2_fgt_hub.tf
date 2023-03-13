@@ -17,10 +17,11 @@ module "r2_fgt_hub_config" {
   fgt-passive-ni_ips = module.r2_fgt_hub_vnet.fgt-passive-ni_ips
 
   /* (uncommet to configure SDN connector instead of using instance metadata)
-  subscription_id = var.subscription_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
+  subscription_id     = var.subscription_id
+  client_id           = var.client_id
+  client_secret       = var.client_secret
+  tenant_id           = var.tenant_id
+  resource_group_name = local.r2_resource_group_name == null ? azurerm_resource_group.r2_rg[0].name : local.r2_resource_group_name
   */
 
   config_fgcp  = local.r2_hub_cluster_type == "fgcp" ? true : false

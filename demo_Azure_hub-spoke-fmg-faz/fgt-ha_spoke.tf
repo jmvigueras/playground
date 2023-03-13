@@ -29,8 +29,8 @@ module "fgt_spoke_config" {
   config_faz   = true
   spoke        = local.spoke
   hubs         = local.hubs
-  fmg_ip       = module.fgt_hub_vnet.fmg_ni_ips["private"]
-  faz_ip       = module.fgt_hub_vnet.faz_ni_ips["private"]
+  fmg_ip       = module.fmg.fmg_private_ip
+  faz_ip       = module.faz.faz_private_ip
 
   fmg_interface-select-method = "sdwan"
   faz_interface-select-method = "sdwan"
