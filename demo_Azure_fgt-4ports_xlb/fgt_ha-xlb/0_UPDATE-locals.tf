@@ -22,7 +22,7 @@ locals {
   admin_password = "Terraform123#"
 
   fgt_size    = "Standard_F4"
-  fgt_version = "6.4.11"
+  fgt_version = "6.4.12"
 
   license_type   = "byol"
   license_file_1 = "./licenses/license1.lic"
@@ -71,6 +71,9 @@ locals {
     public  = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${local.fgt_vnet_name}/subnets/${local.fgt_subnet_names["public"]}"
   }
   fgt_vnet_id = "/subscriptions/${var.subscription_id}/resourceGroups/${var.resource_group_name}/providers/Microsoft.Network/virtualNetworks/${local.fgt_vnet_name}"
+  fgt_vnet    = {
+    id = local.fgt_vnet_id
+  }
 }
 
 resource "tls_private_key" "ssh" {

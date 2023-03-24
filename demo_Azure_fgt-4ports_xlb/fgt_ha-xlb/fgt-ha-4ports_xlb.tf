@@ -89,10 +89,7 @@ module "xlb" {
   ilb_ip             = local.ilb_ip
   backend-probe_port = local.backend-probe_port
 
-  vnet-fgt = {
-    id   = local.fgt_vnet_id
-    name = local.fgt_vnet_name
-  }
+  vnet-fgt           = local.fgt_vnet
   subnet_ids         = local.fgt_subnet_ids
   subnet_cidrs       = local.fgt_subnet_cidrs
   fgt-active-ni_ips  = module.fgt_ni-nsg.fgt-active-ni_ips
