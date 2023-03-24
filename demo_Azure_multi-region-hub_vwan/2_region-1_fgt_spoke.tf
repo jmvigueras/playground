@@ -93,7 +93,7 @@ resource "azurerm_virtual_hub_connection" "r1_vhub_cx_vnet_fgt_spoke" {
   remote_virtual_network_id = module.r1_fgt_spoke_vnet[count.index].vnet["id"]
 
   routing {
-    associated_route_table_id = module.r1_vwan.vhub_rt_spoke_id  
+    associated_route_table_id = module.r1_vwan.vhub_rt_spoke_id
     propagated_route_table {
       route_table_ids = [module.r1_vwan.vhub_rt_default_id]
     }

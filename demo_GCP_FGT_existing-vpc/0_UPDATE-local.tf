@@ -5,7 +5,7 @@ locals {
   region = "europe-west2"
   zone1  = "europe-west2-a"
   zone2  = "europe-west2-a"
-  prefix = "demo-fgt-sdn-fnac"
+  prefix = "demo-fgt-ha"
 
   prefix_1 = "es"
   prefix_2 = "pt"

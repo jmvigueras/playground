@@ -33,7 +33,7 @@ module "r1_fgt_hub_config" {
 
   hub            = local.r1_hub
   hub_peer_vxlan = local.r1_hub_peer_vxlan
-  vhub_peer = module.r1_vwan.virtual_router_ips
+  vhub_peer      = module.r1_vwan.virtual_router_ips
 
   vpc-spoke_cidr = [local.r1_vhub_cidr, module.r1_fgt_hub_vnet.subnet_cidrs["bastion"]]
 }
@@ -148,6 +148,6 @@ module "r1_hub_vnet_spoke_vm" {
 
   vm_ni_ids = [
     module.r1_hub_vnet_spoke.ni_ids["subnet1"][0],
-   // module.r1_hub_vnet_spoke.ni_ids["subnet2"][0]
+    // module.r1_hub_vnet_spoke.ni_ids["subnet2"][0]
   ]
 }

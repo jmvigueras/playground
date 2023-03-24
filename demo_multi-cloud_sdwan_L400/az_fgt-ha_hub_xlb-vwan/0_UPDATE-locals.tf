@@ -27,15 +27,6 @@ locals {
   backend-probe_port = "8008"
 
   config_gwlb = false
-  /*
-  gwlb_ip =  cidrhost(module.fgt_spoke_vnet.subnet_cidrs["private"], 8)
-  gwlb_vxlan = {
-    vdi_ext  = "800"
-    vdi_int  = "801"
-    port_ext = "10800"
-    port_int = "10801"
-  }
-  */
   #-----------------------------------------------------------------------------------------------------
   # FGT HUB locals
   #-----------------------------------------------------------------------------------------------------
@@ -50,7 +41,7 @@ locals {
     ike_version       = "2"
     network_id        = "1"
     dpd_retryinterval = "5"
-    mode-cfg          = true
+    mode_cfg          = true
     vpn_port          = "public"
   }
   ]

@@ -198,6 +198,6 @@ module "r2_hub_vnet_spoke_vm" {
 
   vm_ni_ids = [
     module.r2_hub_vnet_spoke.ni_ids["subnet1"][0],
-  //  module.r2_hub_vnet_spoke.ni_ids["subnet2"][0]
+    //  module.r2_hub_vnet_spoke.ni_ids["subnet2"][0]
   ]
 }
