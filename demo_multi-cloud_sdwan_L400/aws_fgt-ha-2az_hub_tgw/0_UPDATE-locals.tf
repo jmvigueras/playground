@@ -60,7 +60,7 @@ locals {
     {
       id                = local.hub["id"]
       bgp-asn           = local.hub["bgp-asn_hub"]
-      public-ip         = module.fgt_hub_vpc.fgt_active_eip_public
+      public-ip         = module.fgt_hub.fgt_active_eip_public
       hub-ip            = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 0), 1)
       site-ip           = "" // set to "" if VPN mode-cfg is enable
       hck-srv-ip        = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 0), 1)
@@ -73,7 +73,7 @@ locals {
     {
       id                = local.hub["id"]
       bgp-asn           = local.hub["bgp-asn_hub"]
-      public-ip         = module.fgt_hub_vpc.fgt_passive_eip_public
+      public-ip         = module.fgt_hub.fgt_passive_eip_public[0]
       hub-ip            = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 1), 1)
       site-ip           = "" // set to "" if VPN mode-cfg is enable
       hck-srv-ip        = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 1), 1)

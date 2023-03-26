@@ -49,8 +49,8 @@ module "fgt_hub_config" {
   tgw_cidr        = local.tgw_cidr
   tgw_bgp-asn     = local.tgw_bgp-asn
   
-  fmg_ip          = module.fgt_hub_vpc.fmg_ni_ips["private"]
-  faz_ip          = module.fgt_hub_vpc.faz_ni_ips["private"]
+  fmg_ip          = module.fmg.ni_ips["private"]
+  faz_ip          = module.faz.ni_ips["private"]
 
   vpc-spoke_cidr  = local.vpc-spoke_cidr
 }
@@ -125,6 +125,9 @@ module "vm_tgw_hub_az1" {
   prefix  = "${local.prefix}-tgw-hub-az1"
   ni_id   = module.tgw_hub_vpc-spoke[count.index].az1-vm-ni_id
   keypair = aws_key_pair.keypair.key_name
+
+  subnet_id       = module.tgw_hub_vpc-spoke[count.index].subnet_az1_ids["vm"]
+  security_groups = [module.tgw_hub_vpc-spoke[count.index].nsg_ids["vm"]]
 }
 // Create VM in spoke vpc to TGW AZ2
 module "vm_tgw_hub_az2" {
@@ -132,6 +135,8 @@ module "vm_tgw_hub_az2" {
   source = "git::github.com/jmvigueras/modules//aws/new-instance"
 
   prefix  = "${local.prefix}-tgw-hub-az2"
-  ni_id   = module.tgw_hub_vpc-spoke[count.index].az2-vm-ni_id
   keypair = aws_key_pair.keypair.key_name
+
+  subnet_id       = module.tgw_hub_vpc-spoke[count.index].subnet_az2_ids["vm"]
+  security_groups = [module.tgw_hub_vpc-spoke[count.index].nsg_ids["vm"]]
 }

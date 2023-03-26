@@ -14,8 +14,14 @@ module "faz" {
   license_type = "byol"
   license_file = "./licenses/licenseFAZ.lic"
 
-  faz_ni_ids = module.fgt_hub_vpc.faz_ni_ids
-  faz_ni_ips = module.fgt_hub_vpc.faz_ni_ips
+  nsg_ids = {
+    public  = [module.fgt_hub_vpc.nsg_ids["allow_all"]]
+    private = [module.fgt_hub_vpc.nsg_ids["bastion"]]
+  }
+  subnet_ids = {
+    public  = module.fgt_hub_vpc.subnet_az1_ids["public"]
+    private = module.fgt_hub_vpc.subnet_az1_ids["bastion"]
+  }
   subnet_cidrs = {
     public  = module.fgt_hub_vpc.subnet_az1_cidrs["public"]
     private = module.fgt_hub_vpc.subnet_az1_cidrs["bastion"]
@@ -34,8 +40,14 @@ module "fmg" {
   license_type = "byol"
   license_file = "./licenses/licenseFMG.lic"
 
-  fmg_ni_ids = module.fgt_hub_vpc.fmg_ni_ids
-  fmg_ni_ips = module.fgt_hub_vpc.fmg_ni_ips
+  nsg_ids = {
+    public  = [module.fgt_hub_vpc.nsg_ids["allow_all"]]
+    private = [module.fgt_hub_vpc.nsg_ids["bastion"]]
+  }
+  subnet_ids = {
+    public  = module.fgt_hub_vpc.subnet_az1_ids["public"]
+    private = module.fgt_hub_vpc.subnet_az1_ids["bastion"]
+  }
   subnet_cidrs = {
     public  = module.fgt_hub_vpc.subnet_az1_cidrs["public"]
     private = module.fgt_hub_vpc.subnet_az1_cidrs["bastion"]
