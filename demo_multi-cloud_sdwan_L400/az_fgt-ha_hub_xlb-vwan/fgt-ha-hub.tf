@@ -8,7 +8,7 @@
 ###################################################################
 module "fgt_hub_config" {
   depends_on = [module.xlb, module.fgt_hub_vnet, module.rs]
-  source     = "git::github.com/jmvigueras/modules//azure/fgt-config"
+  source     = "git::github.com/jmvigueras/modules//azure/fgt-config_v2"
 
   admin_cidr     = local.admin_cidr
   admin_port     = local.admin_port
@@ -195,7 +195,7 @@ module "vm_hub_vnet-spoke-fgt" {
 
   vm_ni_ids = [
     module.vnet-spoke-fgt.ni_ids["subnet1"][0],
-   // module.vnet-spoke-fgt.ni_ids["subnet2"][0]
+    // module.vnet-spoke-fgt.ni_ids["subnet2"][0]
   ]
 }
 
@@ -212,7 +212,7 @@ module "vm_hub_vnet-spoke-vhub" {
 
   vm_ni_ids = [
     module.vnet-spoke-vhub.ni_ids["subnet1"][0],
-   // module.vnet-spoke-vhub.ni_ids["subnet2"][0]
+    // module.vnet-spoke-vhub.ni_ids["subnet2"][0]
   ]
 }
 

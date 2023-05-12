@@ -7,7 +7,7 @@ locals {
 
   prefix     = "demo-multi-cloud"
   admin_port = "8443"
-  admin_cidr = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr = "${chomp(data.http.my-public-ip.response_body)}/32"
 
   instance_type    = "c6i.large"
   fgt_build        = "build1396"
@@ -19,6 +19,9 @@ locals {
     az2 = "eu-west-1c"
   }
 
+  #-----------------------------------------------------------------------------------------------------
+  # FAZ and FMG locals
+  #-----------------------------------------------------------------------------------------------------
   faz_license_type = "byol"
   faz_license_file = "./licenses/licenseFAZ.lic"
   fmg_license_type = "byol"
@@ -27,18 +30,22 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # FGT HUB locals
   #-----------------------------------------------------------------------------------------------------
-  hub = {
-    id                = "HUB-AWS"
-    bgp-asn_hub       = "65000"
-    bgp-asn_spoke     = "65000"
-    vpn_cidr          = "10.10.10.0/24"
-    vpn_psk           = "secret-key-123"
-    cidr              = "172.20.0.0/23"
-    ike-version       = "2"
-    network_id        = "1"
-    dpd-retryinterval = "5"
-    mode-cfg          = true
-  }
+  fgt_hub_vpc_cidr = "172.20.0.0/24"
+  hub = [
+    {
+      id                = "HUB-AWS"
+      bgp_asn_hub       = "65000"
+      bgp_asn_spoke     = "65000"
+      vpn_cidr          = "10.10.10.0/24"
+      vpn_psk           = "secret-key-123"
+      cidr              = local.fgt_hub_vpc_cidr
+      ike_version       = "2"
+      network_id        = "1"
+      dpd_retryinterval = "5"
+      mode_cfg          = true
+      vpn_port          = "public"
+    }
+  ]
   hub_peer_vxlan = {
     bgp-asn   = "65000"
     public-ip = ""
@@ -58,30 +65,32 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   hubs = [
     {
-      id                = local.hub["id"]
-      bgp-asn           = local.hub["bgp-asn_hub"]
-      public-ip         = module.fgt_hub.fgt_active_eip_public
-      hub-ip            = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 0), 1)
-      site-ip           = "" // set to "" if VPN mode-cfg is enable
-      hck-srv-ip        = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 0), 1)
+      id                = local.hub[0]["id"]
+      bgp_asn           = local.hub[0]["bgp_asn_hub"]
+      external_ip       = module.fgt_hub.fgt_active_eip_public
+      hub_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 1, 0), 1)
+      site_ip           = "" // set to "" if VPN mode-cfg is enable
+      hck_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 1, 0), 1)
       vpn_psk           = module.fgt_hub_config.vpn_psk
-      cidr              = local.hub["cidr"]
-      ike-version       = local.hub["ike-version"]
-      network_id        = local.hub["network_id"]
-      dpd-retryinterval = local.hub["dpd-retryinterval"]
+      cidr              = local.hub[0]["cidr"]
+      ike_version       = local.hub[0]["ike_version"]
+      network_id        = local.hub[0]["network_id"]
+      dpd_retryinterval = local.hub[0]["dpd_retryinterval"]
+      sdwan_port        = "public"
     },
     {
-      id                = local.hub["id"]
-      bgp-asn           = local.hub["bgp-asn_hub"]
-      public-ip         = module.fgt_hub.fgt_passive_eip_public[0]
-      hub-ip            = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 1), 1)
-      site-ip           = "" // set to "" if VPN mode-cfg is enable
-      hck-srv-ip        = cidrhost(cidrsubnet(local.hub["vpn_cidr"], 1, 1), 1)
+      id                = local.hub[0]["id"]
+      bgp_asn           = local.hub[0]["bgp_asn_hub"]
+      external_ip       = module.fgt_hub.fgt_passive_eip_public
+      hub_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 1, 1), 1)
+      site_ip           = "" // set to "" if VPN mode-cfg is enable
+      hck_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 1, 1), 1)
       vpn_psk           = module.fgt_hub_config.vpn_psk
-      cidr              = local.hub["cidr"]
-      ike-version       = local.hub["ike-version"]
-      network_id        = local.hub["network_id"]
-      dpd-retryinterval = local.hub["dpd-retryinterval"]
+      cidr              = local.hub[0]["cidr"]
+      ike_version       = local.hub[0]["ike_version"]
+      network_id        = local.hub[0]["network_id"]
+      dpd_retryinterval = local.hub[0]["dpd_retryinterval"]
+      sdwan_port        = "public"
     }
   ]
 }

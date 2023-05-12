@@ -9,7 +9,7 @@ output "fgt_hub" {
     fgt-1_pass   = module.fgt_hub.fgt_active_id
     fgt-2_pass   = module.fgt_hub.fgt_passive_id
     vpn_psk      = module.fgt_hub_config.vpn_psk
-    admin_cidr   = "${chomp(data.http.my-public-ip.body)}/32"
+    admin_cidr   = "${chomp(data.http.my-public-ip.response_body)}/32"
     api_key      = module.fgt_hub_config.api_key
   }
 }

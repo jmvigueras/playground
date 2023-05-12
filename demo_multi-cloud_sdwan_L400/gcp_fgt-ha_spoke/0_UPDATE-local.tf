@@ -9,13 +9,13 @@ locals {
   machine = "n1-standard-4"
 
   admin_port   = "8443"
-  admin_cidr   = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr   = "${chomp(data.http.my-public-ip.response_body)}/32"
   license_type = "payg"
 
   spoke = {
     id      = "spoke"
     cidr    = "192.168.0.0/23" //minimum range to create proxy subnet
-    bgp-asn = "65000"
+    bgp_asn = "65000"
   }
   vpc_spoke-subnet_cidrs = ["192.168.10.0/23","192.168.20.0/23"]
 

@@ -81,7 +81,7 @@ module "ncc_private" {
   ncc_bgp-asn      = local.ncc_bgp-asn
   ncc_ips          = module.fgt_vpc.ncc_private_ips
 
-  fgt_bgp-asn           = local.spoke["bgp-asn"]
+  fgt_bgp-asn           = local.spoke["bgp_asn"]
   fgt-active-ni_ip      = module.fgt_vpc.fgt-active-ni_ips["private"]
   fgt-passive-ni_ip     = module.fgt_vpc.fgt-passive-ni_ips["private"]
   fgt_active_self_link  = module.fgt.fgt_active_self_link

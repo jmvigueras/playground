@@ -16,7 +16,7 @@ module "fgt_hub_vpc" {
   admin_port = local.admin_port
   region     = local.region
 
-  vpc-sec_cidr          = local.hub["cidr"]
+  vpc-sec_cidr          = local.hub[0]["cidr"]
   tgw_id                = module.tgw_hub.tgw_id
   tgw_rt-association_id = module.tgw_hub.rt_default_id
   tgw_rt-propagation_id = module.tgw_hub.rt_vpc-spoke_id
@@ -104,7 +104,7 @@ module "tgw_hub_connect" {
   prefix         = local.prefix
   vpc_tgw-att_id = module.fgt_hub_vpc.vpc_tgw-att_id
   tgw_id         = module.tgw_hub.tgw_id
-  peer_bgp-asn   = local.hub["bgp-asn_hub"]
+  peer_bgp-asn   = local.hub[0]["bgp_asn_hub"]
   peer_ip = [
     module.fgt_hub_vpc.fgt-active-ni_ips["private"],
     module.fgt_hub_vpc.fgt-passive-ni_ips["private"]
@@ -123,7 +123,6 @@ module "vm_tgw_hub_az1" {
   source = "git::github.com/jmvigueras/modules//aws/new-instance"
 
   prefix  = "${local.prefix}-tgw-hub-az1"
-  ni_id   = module.tgw_hub_vpc-spoke[count.index].az1-vm-ni_id
   keypair = aws_key_pair.keypair.key_name
 
   subnet_id       = module.tgw_hub_vpc-spoke[count.index].subnet_az1_ids["vm"]

@@ -8,7 +8,7 @@ locals {
   prefix                   = "demo-multi-cloud" // prefix added to all resources created
 
   admin_port     = "8443"
-  admin_cidr     = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr     = "${chomp(data.http.my-public-ip.response_body)}/32"
   admin_username = "azureadmin"
   admin_password = "Terraform123#"
 
@@ -31,31 +31,30 @@ locals {
   # FGT HUB locals
   #-----------------------------------------------------------------------------------------------------
   hub = [
-  {
-    id                = "HUB-Az"
-    bgp_asn_hub       = "65000"
-    bgp_asn_spoke     = "65000"
-    vpn_cidr          = "10.10.20.0/24"
-    vpn_psk           = "secret-key-123"
-    cidr              = "172.30.0.0/23"
-    ike_version       = "2"
-    network_id        = "1"
-    dpd_retryinterval = "5"
-    mode_cfg          = true
-    vpn_port          = "public"
-  }
+    {
+      id                = "HUB-Az"
+      bgp_asn_hub       = "65000"
+      bgp_asn_spoke     = "65000"
+      vpn_cidr          = "10.10.20.0/24"
+      vpn_psk           = "secret-key-123"
+      cidr              = "172.30.0.0/23"
+      ike_version       = "2"
+      network_id        = "1"
+      dpd_retryinterval = "5"
+      mode_cfg          = true
+      vpn_port          = "public"
+    }
   ]
   hub_peer_vxlan = [
-  {
-    bgp_asn    = "65000"
-    public_ip  = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.fgt_hub["fgt-1_public"]
-    remote_ip  = "10.10.30.1"
-    local_ip   = "10.10.30.2"
-    vni        = "1100"
-    vxlan_port = "public"
-  }
+    {
+      bgp_asn     = "65000"
+      external_ip = data.terraform_remote_state.aws_fgt-ha-2az_hub-spoke_tgw.outputs.fgt_hub["fgt-1_public"]
+      remote_ip   = "10.10.30.1"
+      local_ip    = "10.10.30.2"
+      vni         = "1100"
+      vxlan_port  = "public"
+    }
   ]
-
   fgt_vnet-spoke_cidrs = ["172.30.100.0/23"]
 
   #-----------------------------------------------------------------------------------------------------
@@ -76,7 +75,7 @@ locals {
     {
       id                = local.hub[0]["id"]
       bgp_asn           = local.hub[0]["bgp_asn_hub"]
-      public_ip         = module.fgt_hub_vnet.fgt-active-public-ip
+      external_ip       = module.fgt_hub_vnet.fgt-active-public-ip
       hub_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 0, 0), 1)
       site_ip           = "" // set to "" if VPN mode-cfg is enable
       hck_ip            = cidrhost(cidrsubnet(local.hub[0]["vpn_cidr"], 0, 0), 1)
@@ -89,8 +88,6 @@ locals {
     }
   ]
 }
-
-
 
 #-----------------------------------------------------------------------------------------------------
 # Import tfsate file from AWS and Azure deployment
