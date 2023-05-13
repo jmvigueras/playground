@@ -3,10 +3,6 @@
 
 This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 1 site. The traffic between HUBs and site is managed by fortigate using SDWAN technology and traffic inside HUBs is also controled by fortigates clusters. With this configuration all traffic will be inspected and controlled using fortigate L7 inspection improving security and visibility. 
 
-## Requirements
-* [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) >= 1.0.0
-* Check particulars requiriments for each deployment (AWS, Azure and GCP) 
-
 ## Deployment Overview
 
 - Full deployment of a multi HUB enviroment with 2 hubs and 1 site. 
@@ -23,15 +19,15 @@ This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 
 
 ### HubAWS diagram
 
-![Hub AWS architecture overview](images/image_hub_aws.png)
+![Hub AWS architecture overview](images/image1.png)
 
 ### HubAazure diagram
 
-![Hub AWS architecture overview](images/image_hub_azure.png)
+![Hub AWS architecture overview](images/image2.png)
 
 ### SiteGCP diagram
 
-![SiteGCP architecture overview](images/image_spoke_gcp.png)
+![SiteGCP architecture overview](images/image3.png)
 
 ## Deployment
 * Clone the repository.
@@ -39,6 +35,10 @@ This deployment will create a full multi HUB and Spoke scenario with 2 HUBs and 
 * Change parameters in the variables.tf.
 * If using SSO, uncomment the token variable in variables.tf and providers.tf
 * Initialize the providers and modules in each individual deployment as is described in it README file.
+
+## Requirements
+* [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) >= 1.0.0
+* Check particulars requiriments for each deployment (AWS, Azure and GCP) 
 
 # Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
