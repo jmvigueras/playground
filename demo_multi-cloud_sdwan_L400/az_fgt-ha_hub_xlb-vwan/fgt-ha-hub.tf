@@ -1,11 +1,9 @@
-#------------------------------------------------------------------
+#-----------------------------------------------------------------------------------
 # Create FGT HUB 
-# - FGSP
-# - vWAN association (dynamic routing to vHUB)
-# - LB sandwich
-# - Azure Route Server BGP session in vNet spoke FGT
-# - vxlan interfaces to connecto to GWLB
-###################################################################
+# - FGT config (FGCP)
+# - VNet FGT
+# - FGT vms
+#-----------------------------------------------------------------------------------
 module "fgt_hub_config" {
   depends_on = [module.xlb, module.fgt_hub_vnet, module.rs]
   source     = "git::github.com/jmvigueras/modules//azure/fgt-config_v2"
@@ -41,7 +39,7 @@ module "fgt_hub_config" {
   fmg_ip = local.fmg_ip
   faz_ip = local.faz_ip
 
-  vpc-spoke_cidr = [module.fgt_hub_vnet.subnet_cidrs["bastion"], local.fgt_vnet-spoke_cidrs[0], local.vhub_vnet-spoke_cidrs[0]]
+  vpc-spoke_cidr = [module.fgt_hub_vnet.subnet_cidrs["bastion"]]
 }
 
 // Create FGT cluster as HUB-ADVPN
@@ -82,17 +80,15 @@ module "fgt_hub_vnet" {
   admin_cidr    = local.admin_cidr
 }
 
-
-###########################################################################
+#-----------------------------------------------------------------------------------
 # Deploy complete architecture with other modules used as input in module
 # - module vwan
-# - module vnet-fgt
-# - module vnet-spoke
-# - module site-spoke-to-2hubs
-# - module vwan
+# - module vnet-spoke-to-fgt
+# - module site-spoke
 # - module xlb-fgt
 # - module rs
-############################################################################
+# - test VM in spoke VNet
+#-----------------------------------------------------------------------------------
 // Module create vWAN and vHUB
 module "vwan" {
   depends_on = [module.vnet-spoke-vhub, module.fgt_hub_vnet]
