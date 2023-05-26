@@ -16,7 +16,7 @@ module "fgt_vpc" {
 # Create FGT cluster config
 #------------------------------------------------------------------------------------------------------------
 module "fgt_config" {
-  source = "git::github.com/jmvigueras/modules//gcp/fgt-config"
+  source = "./modules/fgt-config"
 
   admin_cidr     = local.admin_cidr
   admin_port     = local.admin_port
