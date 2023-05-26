@@ -85,6 +85,12 @@ module "tgw_hub_ot_vpc-spoke" {
   tgw_rt-association_id = module.tgw_hub_ot.rt_vpc-spoke_id
   tgw_rt-propagation_id = [module.tgw_hub_ot.rt_default_id, module.tgw_hub_ot.rt-vpc-sec-N-S_id, module.tgw_hub_ot.rt-vpc-sec-E-W_id]
 }
+// Create static route in TGW RouteTable Spoke
+resource "aws_ec2_transit_gateway_route" "tgw_hub_ot_vpc-spoke_route" {
+  destination_cidr_block         = "0.0.0.0/0"
+  transit_gateway_attachment_id  = module.fgt_hub_ot_vpc.vpc_tgw-att_id
+  transit_gateway_route_table_id = module.tgw_hub_ot.rt_vpc-spoke_id
+}
 // Create VM in spoke vpc to TGW AZ1
 module "vm_tgw_hub_ot" {
   count  = local.count_ot_spoke_vpcs
