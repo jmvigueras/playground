@@ -83,7 +83,7 @@ module "r3_hub_azure_core" {
 }
 // Module VNET for FGT
 module "r3_hub_azure_core_vnet" {
-  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt"
+  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt_v2"
 
   prefix              = "${local.prefix}-r3-hub"
   location            = local.region_3
@@ -95,6 +95,7 @@ module "r3_hub_azure_core_vnet" {
   admin_cidr    = local.admin_cidr
 
   accelerate = true
+  config_xlb = true
 }
 
 #------------------------------------------------------------------

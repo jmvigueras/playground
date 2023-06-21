@@ -23,7 +23,6 @@ module "r1_hub_on_prem_config" {
 
   config_xlb = true
   ilb_ip     = local.r1_hub_on_prem_ilb_ip
-  //elb_ip     = module.r1_hub_on_prem_xlb.elb_public-ip
 
   config_hub = true
   hub        = local.r1_hub_on_prem_sdwan
@@ -80,7 +79,7 @@ module "r1_hub_on_prem" {
 }
 // Module VNET for FGT
 module "r1_hub_on_prem_vnet" {
-  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt"
+  source = "git::github.com/jmvigueras/modules//azure/vnet-fgt_v2"
 
   prefix              = "${local.prefix}-r1-on-prem"
   location            = local.region_1
@@ -92,6 +91,7 @@ module "r1_hub_on_prem_vnet" {
   admin_cidr    = local.admin_cidr
 
   accelerate = true
+  config_xlb = true
 }
 #------------------------------------------------------------------
 # Create Load Balancers
