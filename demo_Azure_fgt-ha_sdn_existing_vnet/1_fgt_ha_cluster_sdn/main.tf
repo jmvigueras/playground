@@ -44,8 +44,8 @@ data "template_file" "fgt_active_extra_config" {
     secondary_ip  = module.fgt_ni-nsg.fgt-active-ni_ips["public_2"]
     fgt_ni        = module.fgt_ni-nsg.fgt-active-ni_names["public"]
     secondary_pip = module.fgt_ni-nsg.fgt-active-public-name-2
-    vm_ip_1       = cidrhost(local.fgt_subnet_cidrs["protected"], 10)
-    vm_ip_2       = cidrhost(local.fgt_subnet_cidrs["protected"], 11)
+    vm_ip_1       = local.protected_srv_1
+    vm_ip_2       = local.protected_srv_2
   })
 }
 data "template_file" "fgt_passive_extra_config" {
@@ -55,8 +55,8 @@ data "template_file" "fgt_passive_extra_config" {
     secondary_ip  = module.fgt_ni-nsg.fgt-passive-ni_ips["public_2"]
     fgt_ni        = module.fgt_ni-nsg.fgt-passive-ni_names["public"]
     secondary_pip = module.fgt_ni-nsg.fgt-active-public-name-2
-    vm_ip_1       = cidrhost(local.fgt_subnet_cidrs["protected"], 10)
-    vm_ip_2       = cidrhost(local.fgt_subnet_cidrs["protected"], 11)
+    vm_ip_1       = local.protected_srv_1
+    vm_ip_2       = local.protected_srv_2
   })
 }
 // Create FGT cluster spoke

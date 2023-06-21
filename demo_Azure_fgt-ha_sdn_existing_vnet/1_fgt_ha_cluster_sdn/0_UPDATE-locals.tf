@@ -13,25 +13,29 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # Existing resources (UPDATE)
   # - Resource group name
-  # - FGT Vnet, subnets and cidrs
+  # - FGT VNet, subnets and cidrs
   #-----------------------------------------------------------------------------------------------------
+  // Resource group name where deploy fortigates
   resource_group_name = "demo-sdn-evo-rg"
-
+  // Fortigate VNet name
   fgt_vnet_name = "demo-sdn-evo-vnet-fgt"
-
+  // List of fortigate VNet subnet names
   fgt_subnet_names = {
-    "mgmt" = "demo-sdn-evo-subnet-hamgmt"
-    "private" = "demo-sdn-evo-subnet-private"
-    "protected" = "demo-sdn-evo-subnet-protected"
-    "public" = "demo-sdn-evo-subnet-public"
+    mgmt      = "demo-sdn-evo-subnet-hamgmt"
+    private   = "demo-sdn-evo-subnet-private"
+    protected = "demo-sdn-evo-subnet-protected"
+    public    = "demo-sdn-evo-subnet-public"
   }
-
+  // List of fortigate VNet subnet cidrs
   fgt_subnet_cidrs = {
-    "mgmt" = "172.30.0.64/26"
-    "private" = "172.30.0.192/26"
-    "protected" = "172.30.1.0/26"
-    "public" = "172.30.0.128/26"
+    mgmt      = "172.30.0.64/26"
+    private   = "172.30.0.192/26"
+    protected = "172.30.1.0/26"
+    public    = "172.30.0.128/26"
   }
+  // IP of protected server to create special NAT outgoing rules
+  protected_srv_1 = cidrhost(local.fgt_subnet_cidrs["protected"], 10)
+  protected_srv_2 = cidrhost(local.fgt_subnet_cidrs["protected"], 11)
   #-----------------------------------------------------------------------------------------------------
   # FGT
   #-----------------------------------------------------------------------------------------------------
