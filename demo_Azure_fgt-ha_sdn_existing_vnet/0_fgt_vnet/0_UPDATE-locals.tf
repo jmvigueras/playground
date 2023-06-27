@@ -2,7 +2,7 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # General variables
   #----------------------------------------------------------------------------------------------------
-  location                 = "francecentral"
+  location                 = "northeurope"
   resource_group_name      = null           // a new resource group will be created if null
   storage-account_endpoint = null           // a new resource group will be created if null
   prefix                   = "demo-sdn-evo" // prefix added to all resources created

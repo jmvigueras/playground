@@ -2,7 +2,7 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # General variables
   #----------------------------------------------------------------------------------------------------
-  location                 = "francecentral"
+  location                 = "northeurope"
   storage-account_endpoint = null           // a new resource group will be created if null
   prefix                   = "demo-sdn-evo" // prefix added to all resources created
 
@@ -49,7 +49,7 @@ locals {
   license_file_1 = "./licenses/license1.lic"
   license_file_2 = "./licenses/license2.lic"
 
-  fgt_size    = "Standard_F4s"
+  fgt_size    = "Standard_D16_v5"
   fgt_version = "7.2.5"
   fgt_passive = true
 
