@@ -29,11 +29,11 @@ resource "azurerm_subnet" "subnet-private" {
   virtual_network_name = azurerm_virtual_network.vnet-fgt.name
   address_prefixes     = [local.subnet_private_cidr]
 }
-resource "azurerm_subnet" "subnet-public-1" {
-  name                 = "${var.prefix}-subnet-public-1"
+resource "azurerm_subnet" "subnet-erc" {
+  name                 = "${var.prefix}-subnet-erc"
   resource_group_name  = var.resource_group_name
   virtual_network_name = azurerm_virtual_network.vnet-fgt.name
-  address_prefixes     = [local.subnet_public_1_cidr]
+  address_prefixes     = [local.subnet_erc_cidr]
 }
 /*
 resource "azurerm_subnet" "subnet-bastion" {
@@ -179,8 +179,8 @@ resource "azurerm_network_interface" "ni-active-private" {
   tags = var.tags
 }
 // Active FGT Network Interface Public 1
-resource "azurerm_network_interface" "ni-active-public-1" {
-  name                          = local.fgt_1_ni_public_1_name
+resource "azurerm_network_interface" "ni-active-erc" {
+  name                          = local.fgt_1_ni_erc_name
   location                      = var.location
   resource_group_name           = var.resource_group_name
   enable_ip_forwarding          = true
@@ -188,9 +188,9 @@ resource "azurerm_network_interface" "ni-active-public-1" {
 
   ip_configuration {
     name                          = "ipconfig1"
-    subnet_id                     = azurerm_subnet.subnet-public-1.id
+    subnet_id                     = azurerm_subnet.subnet-erc.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = local.fgt_1_ni_public_1_ip
+    private_ip_address            = local.fgt_1_ni_erc_ip
   }
 
   tags = var.tags
@@ -268,8 +268,8 @@ resource "azurerm_network_interface" "ni-passive-private" {
   tags = var.tags
 }
 // Passive FGT Network Interface Public 1
-resource "azurerm_network_interface" "ni-passive-public-1" {
-  name                          = local.fgt_2_ni_public_1_name
+resource "azurerm_network_interface" "ni-passive-erc" {
+  name                          = local.fgt_2_ni_erc_name
   location                      = var.location
   resource_group_name           = var.resource_group_name
   enable_ip_forwarding          = true
@@ -277,9 +277,9 @@ resource "azurerm_network_interface" "ni-passive-public-1" {
 
   ip_configuration {
     name                          = "ipconfig1"
-    subnet_id                     = azurerm_subnet.subnet-public-1.id
+    subnet_id                     = azurerm_subnet.subnet-erc.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = local.fgt_2_ni_public_1_ip
+    private_ip_address            = local.fgt_2_ni_erc_ip
   }
 
   tags = var.tags

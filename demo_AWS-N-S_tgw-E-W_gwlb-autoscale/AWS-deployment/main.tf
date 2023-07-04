@@ -31,7 +31,7 @@ data "aws_ami_ids" "fgt-ond-amis" {
 
   filter {
     name   = "name"
-    values = ["FortiGate-VM64-AWSONDEMAND*"]
+    values = ["FortiGate-VM64-AWSONDEMAND ${var.fgt_build}*"]
   }
 }
 

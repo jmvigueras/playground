@@ -70,11 +70,11 @@ variable "ilb_ip" {
 
 // Floating IPs
 variable "elb_floating_ip" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "ilb_floating_ip" {
-  type = bool
+  type    = bool
   default = false
 }
 

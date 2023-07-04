@@ -243,8 +243,8 @@ resource "azurerm_network_interface_security_group_association" "ni-active-publi
   network_interface_id      = local.fgt_1_ni_public_id
   network_security_group_id = azurerm_network_security_group.nsg-public.id
 }
-resource "azurerm_network_interface_security_group_association" "ni-active-public-1-nsg" {
-  network_interface_id      = azurerm_network_interface.ni-active-public-1.id
+resource "azurerm_network_interface_security_group_association" "ni-active-erc-nsg" {
+  network_interface_id      = azurerm_network_interface.ni-active-erc.id
   network_security_group_id = azurerm_network_security_group.nsg-public.id
 }
 # - Connect the security group to the network interfaces FGT passive
@@ -256,8 +256,8 @@ resource "azurerm_network_interface_security_group_association" "ni-passive-publ
   network_interface_id      = local.fgt_2_ni_public_id
   network_security_group_id = azurerm_network_security_group.nsg-public.id
 }
-resource "azurerm_network_interface_security_group_association" "ni-passive-public-1-nsg" {
-  network_interface_id      = azurerm_network_interface.ni-passive-public-1.id
+resource "azurerm_network_interface_security_group_association" "ni-passive-erc-nsg" {
+  network_interface_id      = azurerm_network_interface.ni-passive-erc.id
   network_security_group_id = azurerm_network_security_group.nsg-public.id
 }
 #-------------------------------------------------------------------------------------

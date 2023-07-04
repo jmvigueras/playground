@@ -92,6 +92,11 @@ variable "fgt-ami" {
   default     = null
 }
 
+variable "fgt_build" {
+  description = "FortiOS version build" 
+  default     = "build1517"
+}
+
 variable "instance_type" {
   description = "Provide the instance type for the FortiGate instances"
   default     = "c5.large"

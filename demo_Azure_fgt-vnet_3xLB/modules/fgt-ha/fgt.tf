@@ -8,7 +8,8 @@ resource "azurerm_virtual_machine" "fgt-1" {
   network_interface_ids        = [var.fgt-active-ni_ids[var.fgt_ni_0], var.fgt-active-ni_ids[var.fgt_ni_1], var.fgt-active-ni_ids[var.fgt_ni_2], var.fgt-active-ni_ids[var.fgt_ni_3]]
   primary_network_interface_id = var.fgt-active-ni_ids[var.fgt_ni_0]
   vm_size                      = var.size
-
+  zones                        = [1]
+ 
   lifecycle {
     ignore_changes = [os_profile]
   }
@@ -68,6 +69,7 @@ resource "azurerm_virtual_machine" "fgt-2" {
   network_interface_ids        = [var.fgt-passive-ni_ids[var.fgt_ni_0], var.fgt-passive-ni_ids[var.fgt_ni_1], var.fgt-passive-ni_ids[var.fgt_ni_2], var.fgt-passive-ni_ids[var.fgt_ni_3]]
   primary_network_interface_id = var.fgt-passive-ni_ids[var.fgt_ni_0]
   vm_size                      = var.size
+  zones                        = [2]
 
   lifecycle {
     ignore_changes = [os_profile]

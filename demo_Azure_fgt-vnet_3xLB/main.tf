@@ -88,24 +88,24 @@ module "xlb" {
   fgt-passive-ni_ips = module.fgt_vnet.fgt-passive-ni_ips
 }
 // Create load balancer
-// - Internal LB in external subnet public-1
-module "ilb_public_1" {
+// - Internal LB in external subnet erc
+module "ilb_erc" {
   depends_on = [module.fgt]
   source     = "./modules/ilb"
 
-  prefix              = "${local.prefix}-public-1"
+  prefix              = "${local.prefix}-erc"
   location            = local.location
   resource_group_name = local.resource_group_name == null ? azurerm_resource_group.rg[0].name : local.resource_group_name
   tags                = local.tags
 
-  ilb_ip             = local.ilb_public_1
+  ilb_ip             = local.ilb_erc
   backend-probe_port = local.backend-probe_port
 
   vnet-fgt          = module.fgt_vnet.vnet
-  subnet_id         = module.fgt_vnet.subnet_ids["public_1"]
-  subnet_cidr       = module.fgt_vnet.subnet_cidrs["public_1"]
-  fgt-active-ni_ip  = module.fgt_vnet.fgt-active-ni_ips["public_1"]
-  fgt-passive-ni_ip = module.fgt_vnet.fgt-passive-ni_ips["public_1"]
+  subnet_id         = module.fgt_vnet.subnet_ids["erc"]
+  subnet_cidr       = module.fgt_vnet.subnet_cidrs["erc"]
+  fgt-active-ni_ip  = module.fgt_vnet.fgt-active-ni_ips["erc"]
+  fgt-passive-ni_ip = module.fgt_vnet.fgt-passive-ni_ips["erc"]
 }
 // Accept Azure marketplace agreement to deploy Fortigate image BYOL
 /*

@@ -114,11 +114,11 @@ variable "config_xlb" {
   default = false
 }
 variable "ilb_ip" {
-  type = string 
+  type    = string
   default = ""
 }
 variable "elb_ip" {
-  type = string 
+  type    = string
   default = ""
 }
 #-----------------------------------------------------------------------------------
@@ -381,11 +381,11 @@ variable "subnet_cidrs" {
 variable "ports" {
   type = map(string)
   default = {
-    public    = "port1"
-    private   = "port2"
-    mgtm      = "port3"
-    ha_port   = "port3"
-    public_1  = "port4"
+    public  = "port1"
+    private = "port2"
+    mgtm    = "port3"
+    ha_port = "port3"
+    erc     = "port4"
   }
 }
 
@@ -405,7 +405,7 @@ variable "ha_port" {
   type    = string
   default = "port3"
 }
-variable "public_1_port" {
+variable "erc_port" {
   type    = string
   default = "port4"
 }

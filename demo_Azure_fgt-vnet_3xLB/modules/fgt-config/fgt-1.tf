@@ -45,11 +45,11 @@ data "template_file" "fgt_active" {
     mgmt_ip      = var.fgt-active-ni_ips["mgmt"]
     mgmt_mask    = cidrnetmask(var.subnet_cidrs["mgmt"])
     mgmt_gw      = cidrhost(var.subnet_cidrs["mgmt"], 1)
-    
-    public_1_port  = var.public_1_port
-    public_1_ip    = var.fgt-active-ni_ips["public_1"]
-    public_1_mask  = cidrnetmask(var.subnet_cidrs["public_1"])
-    public_1_gw    = cidrhost(var.subnet_cidrs["public_1"], 1)
+
+    erc_port = var.erc_port
+    erc_ip   = var.fgt-active-ni_ips["erc"]
+    erc_mask = cidrnetmask(var.subnet_cidrs["erc"])
+    erc_gw   = cidrhost(var.subnet_cidrs["erc"], 1)
 
     fgt_sdn-config        = data.template_file.fgt_1_sdn-config.rendered
     fgt_ha-fgcp-config    = var.config_fgcp ? data.template_file.fgt_ha-fgcp-active-config.rendered : ""
@@ -58,7 +58,7 @@ data "template_file" "fgt_active" {
     fgt_static-config     = var.vpc-spoke_cidr != null ? data.template_file.fgt_static-config.rendered : ""
     fgt_sdwan-config      = var.config_spoke ? join("\n", data.template_file.fgt_sdwan-config.*.rendered) : ""
     fgt_vpn-config        = var.config_hub ? join("\n", data.template_file.fgt_vpn-active-config.*.rendered) : ""
-    fgt_vxlan-config      = var.config_vxlan ? var.config_fgsp ? join("\n", local.fgt_1_fgsp_vxlan_config) :  join("\n", data.template_file.fgt_vxlan-active-config.*.rendered) : ""
+    fgt_vxlan-config      = var.config_vxlan ? var.config_fgsp ? join("\n", local.fgt_1_fgsp_vxlan_config) : join("\n", data.template_file.fgt_vxlan-active-config.*.rendered) : ""
     fgt_vhub-config       = var.config_vhub ? data.template_file.fgt_vhub-config.0.rendered : ""
     fgt_ars-config        = var.config_ars ? data.template_file.fgt_ars-config.0.rendered : ""
     fgt_gwlb-vxlan-config = var.config_gwlb-vxlan ? data.template_file.fgt_gwlb-vxlan-config.rendered : ""
@@ -75,9 +75,9 @@ data "template_file" "fgt_1_sdn-config" {
     tenant              = var.tenant_id != null ? var.tenant_id : ""
     subscription        = var.subscription_id != null ? var.subscription_id : ""
     clientid            = var.client_id != null ? var.client_id : ""
-    clientsecret        = var.client_secret != null ? var.client_secret  : ""
+    clientsecret        = var.client_secret != null ? var.client_secret : ""
     resource_group_name = var.resource_group_name != null ? var.resource_group_name : ""
-    
+
     fgt_ni      = var.fgt-active-ni_names != null ? var.fgt-active-ni_names["public"] : ""
     cluster_pip = var.cluster_pip != null ? var.cluster_pip : ""
     route_table = var.route_table != null ? var.route_table : ""
@@ -170,7 +170,7 @@ data "template_file" "fgt_bgp-config" {
 }
 
 locals {
-  fgt_1_fgsp_vxlan_config =  compact([for i, peer_vxlan_config in data.template_file.fgt_vxlan-active-config.*.rendered  : i % 2 != 0 ? null : peer_vxlan_config])
+  fgt_1_fgsp_vxlan_config = compact([for i, peer_vxlan_config in data.template_file.fgt_vxlan-active-config.*.rendered : i % 2 != 0 ? null : peer_vxlan_config])
 }
 
 data "template_file" "fgt_vxlan-active-config" {

@@ -4,7 +4,7 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   resource_group_name      = null // a new resource group will be created if null
   location                 = "francecentral"
-  storage-account_endpoint = null        // a new resource group will be created if null
+  storage-account_endpoint = null       // a new resource group will be created if null
   prefix                   = "demo-xlb" // prefix added to all resources created
 
   tags = {
@@ -35,7 +35,7 @@ locals {
   # LB locals
   #-----------------------------------------------------------------------------------------------------
   ilb_ip             = cidrhost(module.fgt_vnet.subnet_cidrs["private"], 9)
-  ilb_public_1       = cidrhost(module.fgt_vnet.subnet_cidrs["public_1"], 9)
+  ilb_erc            = cidrhost(module.fgt_vnet.subnet_cidrs["erc"], 9)
   backend-probe_port = "8008"
 }
 

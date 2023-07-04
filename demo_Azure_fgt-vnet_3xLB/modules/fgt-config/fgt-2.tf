@@ -28,10 +28,10 @@ data "template_file" "fgt_passive" {
     mgmt_mask    = cidrnetmask(var.subnet_cidrs["mgmt"])
     mgmt_gw      = cidrhost(var.subnet_cidrs["mgmt"], 1)
 
-    public_1_port  = var.public_1_port
-    public_1_ip    = var.fgt-passive-ni_ips["public_1"]
-    public_1_mask  = cidrnetmask(var.subnet_cidrs["public_1"])
-    public_1_gw    = cidrhost(var.subnet_cidrs["public_1"], 1)
+    erc_port = var.erc_port
+    erc_ip   = var.fgt-passive-ni_ips["erc"]
+    erc_mask = cidrnetmask(var.subnet_cidrs["erc"])
+    erc_gw   = cidrhost(var.subnet_cidrs["erc"], 1)
 
     fgt_sdn-config        = data.template_file.fgt_2_sdn-config.rendered
     fgt_ha-fgcp-config    = var.config_fgcp ? data.template_file.fgt_ha-fgcp-passive-config.rendered : ""
@@ -57,9 +57,9 @@ data "template_file" "fgt_2_sdn-config" {
     tenant              = var.tenant_id != null ? var.tenant_id : ""
     subscription        = var.subscription_id != null ? var.subscription_id : ""
     clientid            = var.client_id != null ? var.client_id : ""
-    clientsecret        = var.client_secret != null ? var.client_secret  : ""
+    clientsecret        = var.client_secret != null ? var.client_secret : ""
     resource_group_name = var.resource_group_name != null ? var.resource_group_name : ""
-    
+
     fgt_ni      = var.fgt-passive-ni_names != null ? var.fgt-passive-ni_names["public"] : ""
     cluster_pip = var.cluster_pip != null ? var.cluster_pip : ""
     route_table = var.route_table != null ? var.route_table : ""
@@ -98,7 +98,7 @@ data "template_file" "fgt_vpn-passive-config" {
     network_id            = var.hub[count.index]["network_id"]
     ike_version           = var.hub[count.index]["ike_version"]
     dpd_retryinterval     = var.hub[count.index]["dpd_retryinterval"]
-    local_id               = var.hub[count.index]["id"]
+    local_id              = var.hub[count.index]["id"]
     local_bgp_asn         = var.hub[count.index]["bgp_asn_hub"]
     local_router-id       = var.fgt-passive-ni_ips["mgmt"]
     local_network         = var.hub[count.index]["cidr"]
@@ -119,7 +119,7 @@ data "template_file" "fgt_vpn-passive-config" {
 }
 
 locals {
-  fgt_2_fgsp_vxlan_config =  compact([for i, peer_vxlan_config in data.template_file.fgt_vxlan-passive-config.*.rendered  : i % 2 == 0 ? null : peer_vxlan_config])
+  fgt_2_fgsp_vxlan_config = compact([for i, peer_vxlan_config in data.template_file.fgt_vxlan-passive-config.*.rendered : i % 2 == 0 ? null : peer_vxlan_config])
 }
 
 data "template_file" "fgt_vxlan-passive-config" {

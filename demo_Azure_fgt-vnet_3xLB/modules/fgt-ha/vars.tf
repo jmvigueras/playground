@@ -57,7 +57,7 @@ variable "fgt_ni_2" {
 }
 variable "fgt_ni_3" {
   type    = string
-  default = "public_1"
+  default = "erc"
 }
 
 //  For HA, choose instance size that support 4 nics at least
