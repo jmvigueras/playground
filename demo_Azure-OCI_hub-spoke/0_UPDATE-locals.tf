@@ -5,11 +5,11 @@ locals {
   resource_group_name      = null // a new resource group will be created if null
   location                 = "francecentral"
   storage-account_endpoint = null           // a new resource group will be created if null
-  prefix                   = "demo-cajamar" // prefix added to all resources created
+  prefix                   = "demo-az-oci" // prefix added to all resources created
 
   tags = {
-    Deploy  = "cajamar"
-    Project = "cajamar"
+    Deploy  = "demo-az-oci"
+    Project = "demo-az-oci"
   }
   #-----------------------------------------------------------------------------------------------------
   # LB
