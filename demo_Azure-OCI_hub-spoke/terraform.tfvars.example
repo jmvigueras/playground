@@ -1,0 +1,13 @@
+// Azure variables
+subscription_id = "xxx-xxx"
+client_id       = "xxx-xxx"
+client_secret   = "xxx"
+tenant_id       = "xxx-xxx"
+
+// OCI variables
+tenancy_ocid     = "ocid1.tenancy.oc1..xxx"
+compartment_ocid = "ocid1.compartment.oc1..xxx"
+user_ocid        = "ocid1.user.oc1..xxxx"
+fingerprint      = "xx:e5:f8:xx"
+private_key_path = "xxxx.pem"
+region           = "eu-frankfurt-1"
