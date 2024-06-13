@@ -1,18 +1,7 @@
-# Multi HUB and multi region SDWAN ADVPN scenario with 3 HUBs deployed in Azure
+# Azure site to site deployment connection between two cluster
 ## Introduction
 
-This deployment will create a full multi HUB and multi Region scenario, with 3 HUBs deployed in FranceCentral and WestEurope and 1 spokes deployed in FranceCentral. The traffic between HUBs and site is managed by fortigate using SDWAN technology and traffic inside HUBs is also controled by fortigates clusters. With this configuration all traffic will be inspected and controlled using fortigate L7 inspection improving security and visibility. 
-
-(Private connection between hubs and between hub and spoke, is provided by Azure vNet peering, using Azure core Network. Also, Internet is used and aditional underlay to create necessary overlays)
-
-## Deployment Overview
-
-- Full deployment of a multi HUB enviroment with 2 hubs and 2 site/spokes.
-- Fortigate HUBs vNets are peered to provide private connection between clusters. 
-- Fortigate HUBs vNets and Fortigate spoke are peered to to provide private connection between spoke and hubs.
-- HUBs are connected using a simulated point to point L3 connection with an vxlan interface over Internet and over peerings.
-- Sites created two different ADVPN with Hubs where iBGP is used for dynamic routing. 
-- Overlays are deployed over private connection using Azure core network and Internet.
+This code will create two FortiGate clusters that connect to each other through Internet using an aggregated IPsec tunnel. Additionally, Linux VM machines are deployed for testing the performance of the connection between the two clusters. The iperf connections are automated to perform tests between the two sites upon startup. The number of IPsec tunnels and the number of Linux VMs can be configured as local variables in the code.
 
 ## Diagram overview
 ![FortiGate demo overview](images/image1.png)
