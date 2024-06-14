@@ -2,14 +2,14 @@ locals {
   #-----------------------------------------------------------------------------------------------------
   # Test variables
   #-----------------------------------------------------------------------------------------------------
-  number_ipsec_aggr  = 16 //number of IPSEC tunnel to aggregate
-  number_iperf_test  = 8  //number of linux vm performing IPERF between sites
+  number_ipsec_aggr = 16 //number of IPSEC tunnel to aggregate
+  number_iperf_test = 8  //number of linux vm performing IPERF between sites
 
   #-----------------------------------------------------------------------------------------------------
   # Context locals
   #-----------------------------------------------------------------------------------------------------
-  rg_name                  = null        // it will create a new one if null
-  storage-account_endpoint = null        // it will create a new one if null
+  rg_name                  = null         // it will create a new one if null
+  storage-account_endpoint = null         // it will create a new one if null
   prefix                   = "ipsec-aggr" // prefix added in azure assets
 
   tags = {
@@ -20,7 +20,7 @@ locals {
 
   admin_port     = "8443"
   admin_username = "azureadmin"
-  admin_password = "Terraform123#"
+  admin_password = random_string.admin_password.result
 
   fgt_size         = "Standard_F16s_v2"
   fgt_license_type = "payg"
@@ -41,7 +41,7 @@ locals {
   # BGP ASN
   r1_hub_azure_core_bgp_asn = "65000"
   r1_hub_on_prem_bgp_asn    = "65001"
-  
+
   # Hub to Hub IPSEC private cidrs
   r1_to_r1_cidr = "172.16.11.0/24"
 
@@ -73,7 +73,7 @@ locals {
   config_gwlb              = false
   r1_hub_azure_core_ilb_ip = cidrhost(module.r1_hub_azure_core_vnet.subnet_cidrs["private"], 9)
   backend-probe_port       = "8008"
-  
+
   # Fortigate
   fgt_ports = {
     public  = "port1"

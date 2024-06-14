@@ -28,17 +28,21 @@ resource "local_file" "ssh_private_key_pem" {
   filename        = "./ssh-key/${local.prefix}-ssh-key.pem"
   file_permission = "0600"
 }
-
 # Create new random API key to be provisioned in FortiGates.
 resource "random_string" "api_key" {
   length  = 30
   special = false
   numeric = true
 }
-
 # Create new random API key to be provisioned in FortiGates.
 resource "random_string" "vpn_psk" {
   length  = 30
+  special = false
+  numeric = true
+}
+# Create new random password FortiGates.
+resource "random_string" "admin_password" {
+  length  = 20
   special = false
   numeric = true
 }
@@ -47,7 +51,6 @@ resource "random_id" "randomId" {
   count       = local.storage-account_endpoint == null ? 1 : 0
   byte_length = 8
 }
-
 // Create storage account if not provided
 resource "azurerm_storage_account" "r1_storageaccount" {
   count                    = local.storage-account_endpoint == null ? 1 : 0

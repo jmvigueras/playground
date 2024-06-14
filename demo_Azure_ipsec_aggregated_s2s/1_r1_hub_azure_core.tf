@@ -160,7 +160,7 @@ module "r1_hub_vnet_spoke_vm" {
 # Script to launch iperf3 test
 data "template_file" "r1_hub_vnet_spoke_vm" {
   template = file("./templates/iperf_server.sh")
-  vars = {}
+  vars     = {}
 }
 
 #--------------------------------------------------------------------------------
