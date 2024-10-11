@@ -39,7 +39,7 @@ resource "aws_instance" "active-fgt" {
     network_interface_id = var.eni-active["port3_id"]
   }
   tags = {
-    Name = "${var.prefix}-fgt-active"
+    Name = "${var.prefix}-active"
   }
 }
 

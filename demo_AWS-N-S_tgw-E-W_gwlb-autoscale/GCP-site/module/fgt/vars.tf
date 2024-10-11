@@ -21,11 +21,9 @@ variable "site_id" {
 }
 
 # FortiGate Image name
-# 7.0.5 payg is projects/fortigcp-project-001/global/images/fortinet-fgtondemand-705-20220211-001-w-license
-# 7.0.5 byol is projects/fortigcp-project-001/global/images/fortinet-fgt-705-20220211-001-w-license
 variable "image" {
   type    = string
-  default = "projects/fortigcp-project-001/global/images/fortinet-fgtondemand-705-20220211-001-w-license"
+  default = "/projects/fortigcp-project-001/global/images/fortinet-fgtondemand-729-20240816-001-w-license" //v7.2.9
 }
 
 # VM test Image name

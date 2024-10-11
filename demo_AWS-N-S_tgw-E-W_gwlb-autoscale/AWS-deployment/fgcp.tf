@@ -21,13 +21,13 @@ module "fgt-ha" {
 
   fgt-ami        = data.aws_ami_ids.fgt-ond-amis.ids[0]
   prefix         = "${var.prefix}-fgcp"
-  admin_cidr     = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr     = "${chomp(data.http.my-public-ip.response_body)}/32"
   admin-sport    = var.admin-sport
   region         = var.region
   keypair        = var.keypair != null ? var.keypair : aws_key_pair.keypair[0].key_name
   tags           = var.tags
   instance_type  = var.instance_type
-  rsa-public-key = tls_private_key.ssh.public_key_openssh
+  rsa-public-key = trimspace(tls_private_key.ssh.public_key_openssh)
   api_key        = random_string.api_key.result
 
   vpc-sec_net = "172.31.0.0/20"

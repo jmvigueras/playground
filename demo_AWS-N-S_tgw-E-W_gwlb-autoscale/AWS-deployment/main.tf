@@ -3,7 +3,7 @@ module "vpc-spoke" {
   source = "./modules/vpc-spoke"
 
   prefix      = var.prefix
-  admin_cidr  = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr  = "${chomp(data.http.my-public-ip.response_body)}/32"
   admin-sport = var.admin-sport
   region      = var.region
 

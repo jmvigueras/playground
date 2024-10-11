@@ -1,6 +1,6 @@
 // Create site 
 module "fgt-site" {
-  count  = 2
+  count  = 1
   source = "./module/fgt"
 
   vpc-site_net = cidrsubnet(var.vpc-site_cidr, 4, count.index)
@@ -8,7 +8,7 @@ module "fgt-site" {
   site_id      = count.index
   zone         = var.zone
   admin_port   = var.admin_port
-  admin_cidr   = "${chomp(data.http.my-public-ip.body)}/32"
+  admin_cidr   = "0.0.0.0/0"
   machine      = var.machine
   prefix       = var.prefix
   hub1         = var.hub1
@@ -18,10 +18,6 @@ module "fgt-site" {
     advpn-ip1 = "10.10.10.${count.index + 10}"
     advpn-ip2 = "10.10.20.${count.index + 10}"
   }
-}
-
-data "http" "my-public-ip" {
-  url = "http://ifconfig.me/ip"
 }
 
 data "google_client_openid_userinfo" "me" {}

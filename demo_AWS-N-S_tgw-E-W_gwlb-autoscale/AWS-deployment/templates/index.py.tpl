@@ -75,7 +75,7 @@ def lambda_handler(event, context):
             )
 
             log('{"Exit": "0"}')
-
+            
     #Attaching of second interface is skipped if the instance is launched into the warm pool to avoid hitting network interfaces limit while the instance is not being used and is in warm pool.
     #This section is run when the instance is launched into a warm pool.
     else:
@@ -94,7 +94,6 @@ def get_subnet_id(instance_result):
     try:
         vpc_subnet_id = instance_result['Reservations'][0]['Instances'][0]['SubnetId']
         log("Subnet id: {} for Instance {}".format(vpc_subnet_id,instance_id))
-
     except botocore.exceptions.ClientError as e:
         log("Error describing the instance {}: {}".format(instance_id, e.response['Error']['Code']))
         vpc_subnet_id = None
@@ -109,7 +108,6 @@ def create_interface(subnet_id):
         network_interface = ec2_client.create_network_interface(SubnetId=subnet_id)
         network_interface_id = network_interface['NetworkInterface']['NetworkInterfaceId']
         log("Created network interface: {} for Instance {}".format(network_interface_id,instance_id))
-
     except botocore.exceptions.ClientError as e:
         log("Error creating network interface: {} for Instance {}".format(e.response['Error']['Code'],instance_id))
         abandon_lifecycle_action(LifecycleHookName, AutoScalingGroupName, instance_id, LifecycleActionToken)
@@ -127,7 +125,6 @@ def attach_securitygroup(network_interface_id):
             NetworkInterfaceId=network_interface_id,
         )
         log("Attached security groups to interface {}".format(network_interface_id))
-
     except botocore.exceptions.ClientError as e:
         log("Error attaching security group for interface {} error {}".format(network_interface_id,e.response['Error']['Code']))
         abandon_lifecycle_action(LifecycleHookName, AutoScalingGroupName, instance_id, LifecycleActionToken)
@@ -145,7 +142,6 @@ def attach_interface(network_interface_id, instance_id):
         )
         attachment = attach_interface['AttachmentId']
         log("Created network attachment: {} for Instance {}".format(attachment,instance_id))
-    
     except botocore.exceptions.ClientError as e:
         log("Error attaching network interface {} to Instance {}. Error: {}".format(network_interface_id,instance_id,e.response['Error']['Code']))
         abandon_lifecycle_action(LifecycleHookName, AutoScalingGroupName, instance_id, LifecycleActionToken)
@@ -160,7 +156,6 @@ def allocate_publicip():
             Domain='vpc',
         )
         log("New IP allocation: {}".format(response['AllocationId']))
-
     except botocore.exceptions.ClientError as e:
         log("Error allocation new pubic IP error {}".format(e.response['Error']['Code']))
         abandon_lifecycle_action(LifecycleHookName, AutoScalingGroupName, instance_id, LifecycleActionToken)
@@ -176,7 +171,6 @@ def associate_publicip(allocation_id,network_interface_id):
             NetworkInterfaceId=network_interface_id,
         )
         log("Finish association public IP allocation {} to interface {}".format(allocation_id,network_interface_id))
-    
     except botocore.exceptions.ClientError as e:
         log("Error associate public IP {}".format(e.response['Error']['Code'],network_interface_id))
         abandon_lifecycle_action(LifecycleHookName, AutoScalingGroupName, instance_id, LifecycleActionToken)
@@ -185,18 +179,20 @@ def associate_publicip(allocation_id,network_interface_id):
 
 # delete_interface is run when there might be an error while attaching the secondary interface
 def delete_interface(network_interface_id):
+    response = None
     try:
         ec2_client.delete_network_interface(
             NetworkInterfaceId=network_interface_id
         )
-        return True
-
+        response = True
     except botocore.exceptions.ClientError as e:
         log("Error deleting interface {}: {}".format(network_interface_id, e.response['Error']['Code']))
 
+    return response
 
 # Run complete-lifecycle-action call to continue bringing the instance InService        
 def continue_lifecycle_action(hookname, groupname, instance_id, tokenname):
+    response = None
     try:
         asg_client.complete_lifecycle_action(
         LifecycleHookName=hookname,
@@ -206,14 +202,16 @@ def continue_lifecycle_action(hookname, groupname, instance_id, tokenname):
         LifecycleActionResult='CONTINUE'
         ) 
         log("Completing Lifecycle hook for instance {} with Result:CONTINUE".format(instance_id))
-
+        response = True
     except botocore.exceptions.ClientError as e:
         log("Error completing life cycle hook for instance {}: {}".format(instance_id, e.response['Error']['Code']))
         log('{"Error": "1"}')
-    return
+
+    return response
 
 # Run complete-lifecycle-action call to terminate the instance due to an error
 def abandon_lifecycle_action(hookname,groupname,instance_id,tokenname):
+    response = None
     try:
         asg_client.complete_lifecycle_action(
         LifecycleHookName=hookname,
@@ -223,10 +221,12 @@ def abandon_lifecycle_action(hookname,groupname,instance_id,tokenname):
         LifecycleActionResult='ABANDON'
         ) 
         log("Completing Lifecycle hook for instance {} with Result:ABANDON".format(instance_id))   
+        response = True
     except botocore.exceptions.ClientError as e:
         log("Error completing life cycle hook for instance {}: {}".format(instance_id, e.response['Error']['Code']))
         log('{"Error": "1"}')
-    return
+
+    return response
 
 def log(message):
     print('{}Z {}'.format(datetime.utcnow().isoformat(), message))

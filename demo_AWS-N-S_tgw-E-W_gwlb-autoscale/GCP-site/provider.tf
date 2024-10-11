@@ -7,14 +7,14 @@ terraform {
   }
 }
 provider "google" {
-  project      = var.project
-  region       = "europe-west4"
-  zone         = "europe-west4-a"
-  access_token = var.token
+  project = var.project
+  region  = "europe-west4"
+  zone    = "europe-west4-a"
+  #access_token = var.token
 }
 provider "google-beta" {
-  project      = var.project
-  region       = var.region
-  zone         = var.zone
-  access_token = var.token
+  project = var.project
+  region  = var.region
+  zone    = var.zone
+  #access_token = var.token
 }

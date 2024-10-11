@@ -28,7 +28,7 @@ resource "aws_instance" "fgt" {
     network_interface_id = var.eni["port2_id"]
   }
   tags = {
-    Name = "${var.prefix}-fgt-master"
+    Name = "${var.prefix}-master"
   }
 }
 

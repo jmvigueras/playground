@@ -2,25 +2,23 @@
 ## Introduction
 This project gives an example of a scenario using [AWS Transit Gateway](https://aws.amazon.com/transit-gateway/) product to route traffic to two VPC inspections with Fortigate cluster. Firtsly, one VPC with a Fortigate active-passive cluster will inspect N-S traffic to Internet and SD-WAN sites connected to it. Sencondly, another VPC will inspect E-W traffic between VPC attached to TGW. 
 
-## Requirements
-* [Terraform](https://learn.hashicorp.com/terraform/getting-started/install.html) >= 1.0.0
-- Terraform Provider hashicorp/random v3.4.3
-- Terraform Provider hashicorp/template v2.2.0
-- Terraform Provider hashicorp/archive v2.2.0
-- Terraform Provider hashicorp/http v3.2.1
-- Terraform Provider hashicorp/aws v4.39.0
-- Terraform Provider hashicorp/local v2.2.3
-- Terraform Provider hashicorp/tls v4.0.4
-
 ## Deployment overview 
 
-* Step 1. Go to AWS-deployment folder to deploy in AWS
-* Step 2. Go to GCP-site to deploy as many sites as needed in GCP (this step is optional if you want to try our SD-WAN solution and how it integrates with the complete architecture)
+1. AWS-deployment folder deploy all necessary in AWS. It will deploy:
+   - N-S VPC and FortiGate FGCP cluster.
+   - E-W VPC, Autoscaling groups (ASG), GWLB, Service Endpoint, Lambda function to add new Interface to new FortiGates in ASG and all necessary AWS assets. 
+   - Spoke VPCs with test VMs.
+
+2. GCP-site folder deploy as many sites as wanted in GCP (this deployment is optional if you want to try our SD-WAN solution and how it integrates with the complete architecture).
 
 ## Diagram solution
 
 Full diagram solution with sites deployed in GCP
-![FortiGate reference architecture overview](images/demo_AWS-N-S_tgw-E-W_gwlb-autoscale.png)
+![FortiGate reference architecture overview](images/image0.png)
+
+* **Green traffic** flow matches East-West traffic between attached VPCs to AWS TGW. 
+* **Blue traffic** flow matches East-West traffic between On-Premises or SDWAN spokes and VPCs. 
+* **Black traffic** flow matches traffic North-South traffic, can be outbound or inbound to Internet. 
 
 ## Deployment
 * Clone the repository.
@@ -51,7 +49,3 @@ $ terraform destroy
 
 # Support
 This a personal repository with goal of testing and demo Fortinet solutions on the Cloud. No support is provided and must be used by your own responsability. Cloud Providers will charge for this deployments, please take it in count before proceed.
-
-## License
-Based on Fortinet repositories with original [License](https://github.com/fortinet/fortigate-terraform-deploy/blob/master/LICENSE) © Fortinet Technologies. All rights reserved.
-

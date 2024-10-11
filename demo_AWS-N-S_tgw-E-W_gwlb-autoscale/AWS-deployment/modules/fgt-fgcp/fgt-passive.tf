@@ -32,7 +32,7 @@ resource "aws_instance" "passive-fgt" {
     network_interface_id = var.eni-passive["port3_id"]
   }
   tags = {
-    Name = "${var.prefix}-fgt-passive"
+    Name = "${var.prefix}-passive"
   }
 }
 

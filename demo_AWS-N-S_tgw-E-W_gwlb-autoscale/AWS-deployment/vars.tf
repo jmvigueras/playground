@@ -38,20 +38,6 @@ variable "license_type" {
   default = "payg"
 }
 
-// license file for the active fgt
-variable "license" {
-  // Change to your own byol license file, license.lic
-  type    = string
-  default = "license.txt"
-}
-
-// license file for the passive fgt
-variable "license2" {
-  // Change to your own byol license file, license2.lic
-  type    = string
-  default = "license2.txt"
-}
-
 // CIDR range for ONPREM sites
 variable "spokes-onprem-cidr" {
   default = "192.168.0.0/16"
@@ -64,7 +50,7 @@ variable "vpc-sec_net" {
 
 // CPC spokes on AWS
 variable "subnet-vpc-spoke" {
-  type = map(any)
+  type = map(string)
   default = {
     "spoke-1-vm" = "172.30.16.0/24"
     "spoke-2-vm" = "172.30.18.0/24"
@@ -72,7 +58,7 @@ variable "subnet-vpc-spoke" {
 }
 
 variable "region" {
-  type = map(any)
+  type = map(string)
   default = {
     "region"     = "eu-west-1"
     "region_az1" = "eu-west-1a"
@@ -94,12 +80,12 @@ variable "fgt-ami" {
 
 variable "fgt_build" {
   description = "FortiOS version build" 
-  default     = "build1517"
+  default     = "build1688" //7.2.9
 }
 
 variable "instance_type" {
   description = "Provide the instance type for the FortiGate instances"
-  default     = "c5.large"
+  default     = "c6in.large"
 }
 
 variable "keypair" {

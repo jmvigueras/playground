@@ -41,7 +41,7 @@ module "fgt-fgsp" {
 
 // Create launch templates AZ1
 resource "aws_launch_template" "fgt_az1_launchtemplate" {
-  name_prefix   = "${var.prefix}-fgt-az1-lp-payg"
+  name_prefix   = "${var.prefix}-fgt-az1-lt-payg"
   image_id      = data.aws_ami_ids.fgt-ond-amis.ids[0]
   instance_type = var.instance_type
   user_data     = base64encode(data.template_file.fgt-asg.rendered)
@@ -52,10 +52,18 @@ resource "aws_launch_template" "fgt_az1_launchtemplate" {
     subnet_id             = module.vpc-sec-fgsp.subnet-az1_ids["private"]
     security_groups       = [module.vpc-sec-fgsp.nsg_ids["private"]]
   }
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "${var.prefix}-fgsp-member-az1"
+    }
+  }
 }
 // Create launch templates AZ2
 resource "aws_launch_template" "fgt_az2_launchtemplate" {
-  name_prefix   = "${var.prefix}-fgt-az2-lp-payg"
+  name_prefix   = "${var.prefix}-fgt-az2-lt-payg"
   image_id      = data.aws_ami_ids.fgt-ond-amis.ids[0]
   instance_type = var.instance_type
   user_data     = base64encode(data.template_file.fgt-asg.rendered)
@@ -65,6 +73,14 @@ resource "aws_launch_template" "fgt_az2_launchtemplate" {
     delete_on_termination = true
     subnet_id             = module.vpc-sec-fgsp.subnet-az2_ids["private"]
     security_groups       = [module.vpc-sec-fgsp.nsg_ids["private"]]
+  }
+  
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "${var.prefix}-fgsp-member-az2"
+    }
   }
 }
 
@@ -110,8 +126,8 @@ data "template_file" "fgt-asg" {
     gwlb_ip2           = data.aws_network_interface.gwlb_ni-az2.private_ip
     fgt_master_ip      = module.vpc-sec-fgsp.fgt_eni["port2_ip"]
     admin-sport        = var.admin-sport
-    rsa-public-key     = tls_private_key.ssh.public_key_openssh
-    ip_primary         = module.vpc-sec-fgsp.fgt_eni["port1_ip"]
+    rsa-public-key     = trimspace(tls_private_key.ssh.public_key_openssh)
+    ip_primary         = module.vpc-sec-fgsp.fgt_eni["port2_ip"]
     backend-probe_port = var.backend-probe_port
     subnet-az1-gwlb    = module.vpc-sec-fgsp.subnet-az1_cidr["gwlb"]
     subnet-az2-gwlb    = module.vpc-sec-fgsp.subnet-az2_cidr["gwlb"]
